@@ -1,10 +1,29 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
+    <title>Gene / protein search tool</title>
+
+    <link rel="stylesheet" 
+      href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    
+    <script type="text/javascript" 
+      src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+    <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+ 
   </head>
   <body>
-    <h1>Python template example</h1>
-    <p>Hello from the templatesss</p>
+    <h1>Gene / protein search tool</h1>
+
+    <p>Enter search terms in the NCBI Entrez format. These will be used to
+      search the NCBI gene database.</p>
+    <form name="gene_search" id="gene_search" action="search/">
+      <input name="term" id="term" type="search" value="" 
+        autofocus="autofocus" placeholder="Enter a search term"
+        size='50'/>
+      <input name="submit" type="submit" id="submit" value="submit">
+    </form>
+
   </body>
 </html>
