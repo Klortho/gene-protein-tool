@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <title>Gene / protein search tool</title>
 
-    <link rel="stylesheet" type="text/css" href="style.css" />
+    <link rel="stylesheet" type="text/css" href="{{static('gpt/style.css')}}" />
 
   <!--
     <link rel="stylesheet" 
@@ -16,7 +16,6 @@
   </head>
   <body>
     <h1>Gene / protein search tool</h1>
-
     <p>Enter search terms in the NCBI Entrez format. These will be used to
       search the NCBI gene database.</p>
     <form name="gene_search" id="gene_search" action="{{url('gpt:search')}}" method='post'>
