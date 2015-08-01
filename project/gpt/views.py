@@ -22,8 +22,7 @@ def search(request):
     #return HttpResponseRedirect(reverse('gpt:results', args=(rs.id,)))
     return HttpResponseRedirect(reverse('gpt:result', args=(1,)))
 
-def result(request, result_set_id):
-    return HttpResponse("GPT result")
+
 
 class ResultView(generic.DetailView):
     model = ResultSet
