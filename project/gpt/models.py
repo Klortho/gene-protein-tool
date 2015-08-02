@@ -11,7 +11,7 @@ class Gene(models.Model):
     summary = models.TextField()
 
     def __str__(self):
-        return str(self.uid)
+        return "gene " + str(self.uid) + ": '" + self.name + "'"
 
 class Protein(models.Model):
     gene = models.ForeignKey(Gene)
@@ -20,4 +20,4 @@ class Protein(models.Model):
     title = models.CharField(max_length = 80)
 
     def __str__(self):
-        return str(self.uid)
+        return "protein " + str(self.uid) + ": '" + self.title + "'"

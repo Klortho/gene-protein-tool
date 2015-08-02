@@ -27,12 +27,28 @@ def esearch(term, db='gene'):
 
 
 def esummary(idlist, db='gene'):
+    idlist_str = idlist if type(idlist[0]) is str else map(str, idlist)
     url = (
         eutils_base + '/esummary.fcgi?tool=' + tool + '&email=' + email + '&retmode=json' +
-        '&db=' + db + '&id=' + idlist
+        '&db=' + db + '&id=' + ",".join(idlist_str)
     )
+    logger.info("EUtilities call '" + url + "'")
     resp_str = urlopen(url).readall().decode('utf-8')
     return json.loads(resp_str)['result']
+
+# FIXME: which linkname should we use? gene_protein, or gene_protein_refseq?
+def elink(idlist, dbfrom='gene', db='protein', linkname='gene_protein'):
+    idlist_str = idlist if type(idlist[0]) is str else map(str, idlist)
+    url = (
+        eutils_base + '/elink.fcgi?tool=' + tool + '&email=' + email + '&retmode=json' +
+        '&cmd=neighbor' +
+        '&dbfrom=' + dbfrom + '&db=' + db + '&linkname=' + linkname +
+        '&' + '&'.join(map( (lambda x: 'id=' + x), idlist_str ))
+    )
+    logger.info("EUtilities call '" + url + "'")
+    resp_str = urlopen(url).readall().decode('utf-8')
+    return json.loads(resp_str)['linksets']
+
 
 
 
