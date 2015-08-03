@@ -115,7 +115,7 @@ STATIC_URL = '/static/'
 # Django extensions shell_plus
 
 SHELL_PLUS_PRE_IMPORTS = (
-    ('gpt.eutils', '*'),
+    ('gpt.eutils', ('esearch', 'esummary', 'elink')),
 )
 
 LOGGING = {
@@ -137,4 +137,11 @@ LOGGING = {
         'handlers': ['file', 'console'],
         'level': 'DEBUG',
     },
+}
+
+# Gene protein tool settings
+GPT = {
+    'max_genes': 10,
+    'max_proteins': 25,
+    'max_proteins_per_gene': 3,
 }

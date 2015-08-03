@@ -1,0 +1,447 @@
+{
+    "header": {
+        "type": "esummary",
+        "version": "0.3"
+    },
+    "result": {
+        "uids": [
+            "106099058",
+            "106099000",
+            "106098772",
+            "106098764",
+            "106098726",
+            "106098694",
+            "106098364",
+            "106098298",
+            "106098248",
+            "106098126"
+        ],
+        "106099058": {
+            "uid": "106099058",
+            "name": "ankub1",
+            "description": "ankyrin repeat and ubiquitin domain containing 1",
+            "status": 0,
+            "currentid": 0,
+            "chromosome": "Un",
+            "geneticsource": "genomic",
+            "maplocation": "",
+            "otheraliases": "",
+            "otherdesignations": "",
+            "nomenclaturesymbol": "",
+            "nomenclaturename": "",
+            "nomenclaturestatus": "",
+            "mim": [
+            ],
+            "genomicinfo": [
+            ],
+            "geneweight": 0,
+            "summary": "",
+            "chrsort": "~~last",
+            "chrstart": 999999999,
+            "organism": {
+                "scientificname": "Oreochromis niloticus",
+                "commonname": "Nile tilapia",
+                "taxid": 8128
+            },
+            "locationhist": [
+                {
+                    "annotationrelease": "102",
+                    "assemblyaccver": "GCF_000188235.2",
+                    "chraccver": "NT_167553.1",
+                    "chrstart": 135915,
+                    "chrstop": 143226
+                }
+            ]
+        },
+        "106099000": {
+            "uid": "106099000",
+            "name": "clg14h3orf80",
+            "description": "chromosome LG14 open reading frame, human C3orf80",
+            "status": 0,
+            "currentid": 0,
+            "chromosome": "LG14",
+            "geneticsource": "genomic",
+            "maplocation": "",
+            "otheraliases": "",
+            "otherdesignations": "",
+            "nomenclaturesymbol": "",
+            "nomenclaturename": "",
+            "nomenclaturestatus": "",
+            "mim": [
+            ],
+            "genomicinfo": [
+                {
+                    "chrloc": "LG14",
+                    "chraccver": "NC_022212.1",
+                    "chrstart": 18484734,
+                    "chrstop": 18485931,
+                    "exoncount": 1
+                }
+            ],
+            "geneweight": 0,
+            "summary": "",
+            "chrsort": "LG14",
+            "chrstart": 18484734,
+            "organism": {
+                "scientificname": "Oreochromis niloticus",
+                "commonname": "Nile tilapia",
+                "taxid": 8128
+            },
+            "locationhist": [
+                {
+                    "annotationrelease": "102",
+                    "assemblyaccver": "GCF_000188235.2",
+                    "chraccver": "NC_022212.1",
+                    "chrstart": 18484734,
+                    "chrstop": 18485931
+                }
+            ]
+        },
+        "106098772": {
+            "uid": "106098772",
+            "name": "cttn",
+            "description": "cortactin",
+            "status": 0,
+            "currentid": 0,
+            "chromosome": "LG5",
+            "geneticsource": "genomic",
+            "maplocation": "",
+            "otheraliases": "",
+            "otherdesignations": "",
+            "nomenclaturesymbol": "",
+            "nomenclaturename": "",
+            "nomenclaturestatus": "",
+            "mim": [
+            ],
+            "genomicinfo": [
+                {
+                    "chrloc": "LG5",
+                    "chraccver": "NC_022203.1",
+                    "chrstart": 6462674,
+                    "chrstop": 6414761,
+                    "exoncount": 15
+                }
+            ],
+            "geneweight": 0,
+            "summary": "",
+            "chrsort": "LG05",
+            "chrstart": 6414761,
+            "organism": {
+                "scientificname": "Oreochromis niloticus",
+                "commonname": "Nile tilapia",
+                "taxid": 8128
+            },
+            "locationhist": [
+                {
+                    "annotationrelease": "102",
+                    "assemblyaccver": "GCF_000188235.2",
+                    "chraccver": "NC_022203.1",
+                    "chrstart": 6462674,
+                    "chrstop": 6414761
+                }
+            ]
+        },
+        "106098764": {
+            "uid": "106098764",
+            "name": "ly6g6d",
+            "description": "lymphocyte antigen 6 complex, locus G6D",
+            "status": 0,
+            "currentid": 0,
+            "chromosome": "LG22",
+            "geneticsource": "genomic",
+            "maplocation": "",
+            "otheraliases": "",
+            "otherdesignations": "",
+            "nomenclaturesymbol": "",
+            "nomenclaturename": "",
+            "nomenclaturestatus": "",
+            "mim": [
+            ],
+            "genomicinfo": [
+                {
+                    "chrloc": "LG22",
+                    "chraccver": "NC_022219.1",
+                    "chrstart": 7242263,
+                    "chrstop": 7251251,
+                    "exoncount": 3
+                }
+            ],
+            "geneweight": 0,
+            "summary": "",
+            "chrsort": "LG22",
+            "chrstart": 7242263,
+            "organism": {
+                "scientificname": "Oreochromis niloticus",
+                "commonname": "Nile tilapia",
+                "taxid": 8128
+            },
+            "locationhist": [
+                {
+                    "annotationrelease": "102",
+                    "assemblyaccver": "GCF_000188235.2",
+                    "chraccver": "NC_022219.1",
+                    "chrstart": 7242263,
+                    "chrstop": 7251251
+                }
+            ]
+        },
+        "106098726": {
+            "uid": "106098726",
+            "name": "ppp1r1a",
+            "description": "protein phosphatase 1, regulatory (inhibitor) subunit 1A",
+            "status": 0,
+            "currentid": 0,
+            "chromosome": "LG5",
+            "geneticsource": "genomic",
+            "maplocation": "",
+            "otheraliases": "",
+            "otherdesignations": "",
+            "nomenclaturesymbol": "",
+            "nomenclaturename": "",
+            "nomenclaturestatus": "",
+            "mim": [
+            ],
+            "genomicinfo": [
+                {
+                    "chrloc": "LG5",
+                    "chraccver": "NC_022203.1",
+                    "chrstart": 34480982,
+                    "chrstop": 34446429,
+                    "exoncount": 5
+                }
+            ],
+            "geneweight": 0,
+            "summary": "",
+            "chrsort": "LG05",
+            "chrstart": 34446429,
+            "organism": {
+                "scientificname": "Oreochromis niloticus",
+                "commonname": "Nile tilapia",
+                "taxid": 8128
+            },
+            "locationhist": [
+                {
+                    "annotationrelease": "102",
+                    "assemblyaccver": "GCF_000188235.2",
+                    "chraccver": "NC_022203.1",
+                    "chrstart": 34480982,
+                    "chrstop": 34446429
+                }
+            ]
+        },
+        "106098694": {
+            "uid": "106098694",
+            "name": "ms4a8",
+            "description": "membrane-spanning 4-domains, subfamily A, member 8",
+            "status": 0,
+            "currentid": 0,
+            "chromosome": "LG11",
+            "geneticsource": "genomic",
+            "maplocation": "",
+            "otheraliases": "",
+            "otherdesignations": "",
+            "nomenclaturesymbol": "",
+            "nomenclaturename": "",
+            "nomenclaturestatus": "",
+            "mim": [
+            ],
+            "genomicinfo": [
+                {
+                    "chrloc": "LG11",
+                    "chraccver": "NC_022209.1",
+                    "chrstart": 31462549,
+                    "chrstop": 31464891,
+                    "exoncount": 7
+                }
+            ],
+            "geneweight": 0,
+            "summary": "",
+            "chrsort": "LG11",
+            "chrstart": 31462549,
+            "organism": {
+                "scientificname": "Oreochromis niloticus",
+                "commonname": "Nile tilapia",
+                "taxid": 8128
+            },
+            "locationhist": [
+                {
+                    "annotationrelease": "102",
+                    "assemblyaccver": "GCF_000188235.2",
+                    "chraccver": "NC_022209.1",
+                    "chrstart": 31462549,
+                    "chrstop": 31464891
+                }
+            ]
+        },
+        "106098364": {
+            "uid": "106098364",
+            "name": "bod1",
+            "description": "biorientation of chromosomes in cell division 1",
+            "status": 0,
+            "currentid": 0,
+            "chromosome": "Un",
+            "geneticsource": "genomic",
+            "maplocation": "",
+            "otheraliases": "",
+            "otherdesignations": "",
+            "nomenclaturesymbol": "",
+            "nomenclaturename": "",
+            "nomenclaturestatus": "",
+            "mim": [
+            ],
+            "genomicinfo": [
+            ],
+            "geneweight": 0,
+            "summary": "",
+            "chrsort": "~~last",
+            "chrstart": 999999999,
+            "organism": {
+                "scientificname": "Oreochromis niloticus",
+                "commonname": "Nile tilapia",
+                "taxid": 8128
+            },
+            "locationhist": [
+                {
+                    "annotationrelease": "102",
+                    "assemblyaccver": "GCF_000188235.2",
+                    "chraccver": "NT_167428.1",
+                    "chrstart": 3018441,
+                    "chrstop": 3021530
+                }
+            ]
+        },
+        "106098298": {
+            "uid": "106098298",
+            "name": "lyrm7",
+            "description": "LYR motif containing 7",
+            "status": 0,
+            "currentid": 0,
+            "chromosome": "LG13",
+            "geneticsource": "genomic",
+            "maplocation": "",
+            "otheraliases": "",
+            "otherdesignations": "",
+            "nomenclaturesymbol": "",
+            "nomenclaturename": "",
+            "nomenclaturestatus": "",
+            "mim": [
+            ],
+            "genomicinfo": [
+                {
+                    "chrloc": "LG13",
+                    "chraccver": "NC_022211.1",
+                    "chrstart": 26034901,
+                    "chrstop": 26037935,
+                    "exoncount": 5
+                }
+            ],
+            "geneweight": 0,
+            "summary": "",
+            "chrsort": "LG13",
+            "chrstart": 26034901,
+            "organism": {
+                "scientificname": "Oreochromis niloticus",
+                "commonname": "Nile tilapia",
+                "taxid": 8128
+            },
+            "locationhist": [
+                {
+                    "annotationrelease": "102",
+                    "assemblyaccver": "GCF_000188235.2",
+                    "chraccver": "NC_022211.1",
+                    "chrstart": 26034901,
+                    "chrstop": 26037935
+                }
+            ]
+        },
+        "106098248": {
+            "uid": "106098248",
+            "name": "apln",
+            "description": "apelin",
+            "status": 0,
+            "currentid": 0,
+            "chromosome": "LG2",
+            "geneticsource": "genomic",
+            "maplocation": "",
+            "otheraliases": "",
+            "otherdesignations": "",
+            "nomenclaturesymbol": "",
+            "nomenclaturename": "",
+            "nomenclaturestatus": "",
+            "mim": [
+            ],
+            "genomicinfo": [
+                {
+                    "chrloc": "LG2",
+                    "chraccver": "NC_022200.1",
+                    "chrstart": 12478435,
+                    "chrstop": 12455939,
+                    "exoncount": 3
+                }
+            ],
+            "geneweight": 0,
+            "summary": "",
+            "chrsort": "LG02",
+            "chrstart": 12455939,
+            "organism": {
+                "scientificname": "Oreochromis niloticus",
+                "commonname": "Nile tilapia",
+                "taxid": 8128
+            },
+            "locationhist": [
+                {
+                    "annotationrelease": "102",
+                    "assemblyaccver": "GCF_000188235.2",
+                    "chraccver": "NC_022200.1",
+                    "chrstart": 12478435,
+                    "chrstop": 12455939
+                }
+            ]
+        },
+        "106098126": {
+            "uid": "106098126",
+            "name": "pkib",
+            "description": "protein kinase (cAMP-dependent, catalytic) inhibitor beta",
+            "status": 0,
+            "currentid": 0,
+            "chromosome": "LG22",
+            "geneticsource": "genomic",
+            "maplocation": "",
+            "otheraliases": "",
+            "otherdesignations": "",
+            "nomenclaturesymbol": "",
+            "nomenclaturename": "",
+            "nomenclaturestatus": "",
+            "mim": [
+            ],
+            "genomicinfo": [
+                {
+                    "chrloc": "LG22",
+                    "chraccver": "NC_022219.1",
+                    "chrstart": 16456636,
+                    "chrstop": 16427288,
+                    "exoncount": 4
+                }
+            ],
+            "geneweight": 0,
+            "summary": "",
+            "chrsort": "LG22",
+            "chrstart": 16427288,
+            "organism": {
+                "scientificname": "Oreochromis niloticus",
+                "commonname": "Nile tilapia",
+                "taxid": 8128
+            },
+            "locationhist": [
+                {
+                    "annotationrelease": "102",
+                    "assemblyaccver": "GCF_000188235.2",
+                    "chraccver": "NC_022219.1",
+                    "chrstart": 16456636,
+                    "chrstop": 16427288
+                }
+            ]
+        }
+    }
+}
+

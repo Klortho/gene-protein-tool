@@ -1,0 +1,47 @@
+{
+    "header": {
+        "type": "esearch",
+        "version": "0.3"
+    },
+    "esearchresult": {
+        "count": "2561601",
+        "retmax": "10",
+        "retstart": "0",
+        "idlist": [
+            "106099058",
+            "106099000",
+            "106098772",
+            "106098764",
+            "106098726",
+            "106098694",
+            "106098364",
+            "106098298",
+            "106098248",
+            "106098126"
+        ],
+        "translationset": [
+            {
+                "from": "human",
+                "to": "\"Homo sapiens\"[Organism] OR human[All Fields]"
+            }
+        ],
+        "translationstack": [
+            {
+                "term": "\"Homo sapiens\"[Organism]",
+                "field": "Organism",
+                "count": "212305",
+                "explode": "Y"
+            },
+            {
+                "term": "human[All Fields]",
+                "field": "All Fields",
+                "count": "2561530",
+                "explode": "N"
+            },
+            "OR",
+            "GROUP"
+        ],
+        "querytranslation": "\"Homo sapiens\"[Organism] OR human[All Fields]"
+    }
+}
+
