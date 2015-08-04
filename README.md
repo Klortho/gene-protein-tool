@@ -3,9 +3,45 @@
 ## Models / database schema
 
 
+
+### Request / data model interaction
+
+One of the main goals of this project is to allow users to create a result
+set "report", which they can then save and bookmark. I want the resultant
+report to be a static thing that won't change (unless the user himself 
+decides to change it). 
+
+Because the data coming from E-Utilities is subject to change, this means
+that I want to save the results into the database, in order to ensure that
+the generated report isn't dependent on the vagaries of NCBI.
+
+But that introduces a problem. I don't want to create new Gene and Protein
+records every time a user enters a query, since, for example, they might
+enter the same query many times, and this would cause massive redundancy in
+the database.
+
+Here's the current strategy.  Everything is fluid until a ResultSet, and it's 
+associated Genes and Proteins, gets saved. At that point, an "archive" flag 
+gets set to True, and the records (but not the annotations, if any) become
+read-only.
+
+Specific behavior:
+
+* When we get a query that's the same as that for an existing ResultSet, that
+  doesn't have archive=True, update it. Otherwise, create a new ResultSet.
+* When an esearch results in a gene UID corresponding to a Gene that exists in 
+  the DB, that doesn't have archive=True, then update it. Otherwise create a 
+  new Gene record.
+* When an elink results in a protein UID corresponding to a Protein that exists
+  in the database, that doesn't have archive=True, then update it. Otherwise,
+  create a new Protein record.
+* When the user clicks "save" on a result set display, then set archive=True on
+  that ResultSet and all its corresponding Gene and Protein records.
+
+
+
 ## Views
 
-* Search page - displays a lone search box, and some exlanatory text
 
 
 ## Logging
@@ -34,33 +70,19 @@ The test responses are from here:
 
 * [esearch_human.json](http://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?tool=gene-protein-tool&email=voldrani@gmail.com&retmode=json&retmax=10&db=gene&term=human)
 * [esummary_genes.json](http://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?tool=gene-protein-tool&email=voldrani@gmail.com&retmode=json&db=gene&id=106099058,106099000,106098772,106098764,106098726,106098694,106098364,106098298,106098248,106098126)
+* [elink.json](http://eutils.ncbi.nlm.nih.gov/entrez/eutils/elink.fcgi?tool=gene-protein-tool&email=voldrani@gmail.com&retmode=json&cmd=neighbor&dbfrom=gene&db=protein&linkname=gene_protein&id=106099058&id=106099000&id=106098772&id=106098764&id=106098726&id=106098694&id=106098364&id=106098298&id=106098248&id=106098126)
+* [esummary_proteins.json](http://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?tool=gene-protein-tool&email=voldrani@gmail.com&retmode=json&db=protein&id=908541558,908512451,908446945,908446940,908446936,908528114,908454923,908498535,908535323,908535320,908510771,908431187,908529763,908529760)
 
 
 ## To do
 
-* ✓Refactor, and implement some tests
-    * ✓Move the code I have now to a ResultSet constructor
-    * ✓Need to actually construct all of the objects.
-        * Construct the proteins
-    * ✓Use a setting switch, and static versions of eutils json responses, to
-      define a set of tests that will run "standalone"
-        * For testing, use query "human", max_genes = 10, max_proteins_per_gene = 3,
-          max_proteins = 25.
-        * ✓http://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?tool=gene-protein-tool&email=voldrani@gmail.com&retmode=json&retmax=10&db=gene&term=human
-            - ✓Saved in esearch_human.json,
-              to where? Look at how log file dir is specified, and copy that.
-            - ✓Implemented in esearch()
-    * ✓Write the tests. Close enough: I can't get a test working for the limit of the number
-      of proteins, because when the ResultSet is constructed, that number comes from the
-      eutilities result.
+* ✓Get rid of max_proteins.
+* ✓Save the query into the ResultSet
+* ✓Add archive field to all records
 
-* ✓Save the data into the database
-    * ✓Try to treat UIDs as integers everywhere
-    * ✓Create gene objects
-    * ✓Create protein objects
-    * ✓Wire proteins to genes
-    * ✓Create ResultSet object
-    * ✓Wire genes to ResultSet
+* ✓For proteins UIDs that we've seen before, update rather than create new. 
+* ✓For genes
+* ✓For results sets
 
 
 

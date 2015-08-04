@@ -12,6 +12,7 @@ class Gene(models.Model):
     name = models.CharField(max_length = 20)
     description = models.CharField(max_length = 200)
     summary = models.TextField()
+    archive = models.BooleanField(default = False)
 
     def __str__(self):
         return "gene " + str(self.uid) + ": '" + self.name + "'"
@@ -21,6 +22,7 @@ class Protein(models.Model):
     uid = models.IntegerField()
     caption = models.CharField(max_length = 30)
     title = models.CharField(max_length = 80)
+    archive = models.BooleanField(default = False)
 
     def __str__(self):
         return "protein " + str(self.uid) + ": " + self.caption + " - '" + self.title + "'"
@@ -28,15 +30,23 @@ class Protein(models.Model):
 class ResultSet(models.Model):
     last_updated = models.DateTimeField(auto_now = True)
     genes = models.ManyToManyField(Gene)
+    query = models.CharField(max_length = 200)
+    archive = models.BooleanField(default = False)
 
     # Create a new ResultSet from an Entrez query string.
     # This does not save the ResultSet, or any of the resultant Gene or
     # Protein objects, into the database.
     @classmethod
     def create_from_query(cls, query):
-        rs = cls()
+        try:
+            rs = cls.objects.get(query=query, archive=False)
+            debug_msg = "Updating "
+        except cls.DoesNotExist:
+            rs = cls(query=query)
+            debug_msg = "Creating new "
+
+        #rs = cls(query = query)
         max_genes = GPT['max_genes']
-        max_proteins = GPT['max_proteins']
         max_proteins_per_gene = GPT['max_proteins_per_gene']
 
         # Do ESearch to get the list of genes
@@ -61,14 +71,22 @@ class ResultSet(models.Model):
         my_genes = rs.my_genes = []
         gid_to_gene = {}   # cross reference a gene's UID to the Gene object
         for gid in gids:
-            # FIXME: deal with error, when gid isn't found in results
+            # FIXME: deal with error, when gid isn't found in JSON results
             esummary_gene = esummary_genes[str(gid)]
-            # FIXME: deal with errors when expected keys are not found
-            g = Gene(uid=gid,
-                     name=esummary_gene['name'],
-                     description=esummary_gene['description'],
-                     summary=esummary_gene['summary'])
-            logger.debug("Found " + str(g))
+
+            try:
+                g = Gene.objects.get(uid=gid, archive=False)
+                debug_msg = "Updating "
+            except Gene.DoesNotExist:
+                g = Gene(uid=gid)
+                debug_msg = "Creating new "
+
+            # FIXME: deal with errors when expected keys are not found in the JSON
+            g.name = esummary_gene['name']
+            g.description = esummary_gene['description']
+            g.summary = esummary_gene['summary']
+
+            logger.debug(debug_msg + str(g))
             my_genes.append(g)
             gid_to_gene[gid] = g
 
@@ -102,10 +120,7 @@ class ResultSet(models.Model):
             for pid in gene_pids:
                 pid_to_gene[pid] = gene
 
-            # Limit the *total* number of proteins ("pb" = protein budget)
-            pb = max_proteins - len(pids)
-            pids.extend(gene_pids[0:pb])
-            if (len(pids) >= max_proteins): break
+            pids.extend(gene_pids)
             gene_num = gene_num + 1
 
         # Do ESummary, db=protein, to get info about these proteins; create objects
@@ -116,11 +131,19 @@ class ResultSet(models.Model):
         rs.esummary_proteins = esummary_proteins   # for debugging
         proteins = rs.proteins = []
         for pid in pids:
+            # FIXME: deal with error, when gid isn't found in JSON results
             esummary_protein = esummary_proteins[str(pid)]
-            p = Protein(uid=pid,
-                        caption=esummary_protein['caption'],
-                        title=esummary_protein['title'])
-            logger.debug("Found " + str(p))
+            try:
+                p = Protein.objects.get(uid=pid, archive=False)
+                debug_msg = "Updating "
+            except Protein.DoesNotExist:
+                p = Protein(uid=pid)
+                debug_msg = "Creating new "
+
+            # FIXME: deal with errors when expected keys are not found in the JSON
+            p.caption=esummary_protein['caption']
+            p.title=esummary_protein['title']
+            logger.debug(debug_msg + str(p))
             proteins.append(p)
 
         # Save everything into the database, now that we've parsed all the 
