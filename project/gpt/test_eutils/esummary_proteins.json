@@ -1,0 +1,1551 @@
+{
+    "header": {
+        "type": "esummary",
+        "version": "0.3"
+    },
+    "result": {
+        "uids": [
+            "908541558",
+            "908512451",
+            "908446945",
+            "908446940",
+            "908446936",
+            "908528114",
+            "908454923",
+            "908498535",
+            "908535323",
+            "908535320",
+            "908510771",
+            "908431187",
+            "908529763",
+            "908529760"
+        ],
+        "908541558": {
+            "uid": "908541558",
+            "caption": "XP_013133108",
+            "title": "PREDICTED: protein ANKUB1 [Oreochromis niloticus]",
+            "extra": "gi|908541558|ref|XP_013133108.1|",
+            "gi": 908541558,
+            "createdate": "2015/07/30",
+            "updatedate": "2015/07/30",
+            "flags": 512,
+            "taxid": 8128,
+            "slen": 159,
+            "biomol": "",
+            "moltype": "aa",
+            "topology": "linear",
+            "sourcedb": "refseq",
+            "segsetsize": 0,
+            "projectid": "72943",
+            "genome": "genomic",
+            "subtype": "sex|chromosome",
+            "subname": "female|Unknown",
+            "assemblygi": 0,
+            "assemblyacc": "",
+            "tech": "",
+            "completeness": "complete",
+            "geneticcode": "1",
+            "strand": "",
+            "organism": "Nile tilapia",
+            "strain": "",
+            "statistics": [
+                {
+                    "type": "all",
+                    "count": 4
+                },
+                {
+                    "type": "blob_size",
+                    "count": 5038
+                },
+                {
+                    "type": "cdregion",
+                    "count": 1
+                },
+                {
+                    "type": "cdregion",
+                    "subtype": "CDS",
+                    "count": 1
+                },
+                {
+                    "type": "gene",
+                    "count": 1
+                },
+                {
+                    "type": "gene",
+                    "subtype": "Gene",
+                    "count": 1
+                },
+                {
+                    "type": "org",
+                    "count": 1
+                },
+                {
+                    "type": "prot",
+                    "count": 1
+                },
+                {
+                    "type": "prot",
+                    "subtype": "Prot",
+                    "count": 1
+                },
+                {
+                    "source": "all",
+                    "type": "all",
+                    "count": 4
+                },
+                {
+                    "source": "all",
+                    "type": "blob_size",
+                    "count": 5038
+                },
+                {
+                    "source": "all",
+                    "type": "cdregion",
+                    "count": 1
+                },
+                {
+                    "source": "all",
+                    "type": "gene",
+                    "count": 1
+                },
+                {
+                    "source": "all",
+                    "type": "org",
+                    "count": 1
+                },
+                {
+                    "source": "all",
+                    "type": "prot",
+                    "count": 1
+                }
+            ],
+            "properties": {
+                "aa": "2",
+                "value": "2"
+            },
+            "oslt": {
+                "indexed": true,
+                "value": "XP_013133108.1"
+            },
+            "accessionversion": "XP_013133108.1"
+        },
+        "908512451": {
+            "uid": "908512451",
+            "caption": "XP_013132759",
+            "title": "PREDICTED: uncharacterized membrane protein C3orf80 homolog [Oreochromis niloticus]",
+            "extra": "gi|908512451|ref|XP_013132759.1|",
+            "gi": 908512451,
+            "createdate": "2015/07/30",
+            "updatedate": "2015/07/30",
+            "flags": 512,
+            "taxid": 8128,
+            "slen": 216,
+            "biomol": "",
+            "moltype": "aa",
+            "topology": "linear",
+            "sourcedb": "refseq",
+            "segsetsize": 0,
+            "projectid": "72943",
+            "genome": "genomic",
+            "subtype": "sex|linkage_group",
+            "subname": "female|LG14",
+            "assemblygi": 0,
+            "assemblyacc": "",
+            "tech": "",
+            "completeness": "complete",
+            "geneticcode": "1",
+            "strand": "",
+            "organism": "Nile tilapia",
+            "strain": "",
+            "statistics": [
+                {
+                    "type": "all",
+                    "count": 4
+                },
+                {
+                    "type": "blob_size",
+                    "count": 4620
+                },
+                {
+                    "type": "cdregion",
+                    "count": 1
+                },
+                {
+                    "type": "cdregion",
+                    "subtype": "CDS",
+                    "count": 1
+                },
+                {
+                    "type": "gene",
+                    "count": 1
+                },
+                {
+                    "type": "gene",
+                    "subtype": "Gene",
+                    "count": 1
+                },
+                {
+                    "type": "org",
+                    "count": 1
+                },
+                {
+                    "type": "prot",
+                    "count": 1
+                },
+                {
+                    "type": "prot",
+                    "subtype": "Prot",
+                    "count": 1
+                },
+                {
+                    "source": "all",
+                    "type": "all",
+                    "count": 4
+                },
+                {
+                    "source": "all",
+                    "type": "blob_size",
+                    "count": 4620
+                },
+                {
+                    "source": "all",
+                    "type": "cdregion",
+                    "count": 1
+                },
+                {
+                    "source": "all",
+                    "type": "gene",
+                    "count": 1
+                },
+                {
+                    "source": "all",
+                    "type": "org",
+                    "count": 1
+                },
+                {
+                    "source": "all",
+                    "type": "prot",
+                    "count": 1
+                }
+            ],
+            "properties": {
+                "aa": "2",
+                "value": "2"
+            },
+            "oslt": {
+                "indexed": true,
+                "value": "XP_013132759.1"
+            },
+            "accessionversion": "XP_013132759.1"
+        },
+        "908446945": {
+            "uid": "908446945",
+            "caption": "XP_013131444",
+            "title": "PREDICTED: src substrate cortactin isoform X3 [Oreochromis niloticus]",
+            "extra": "gi|908446945|ref|XP_013131444.1|",
+            "gi": 908446945,
+            "createdate": "2015/07/30",
+            "updatedate": "2015/07/30",
+            "flags": 512,
+            "taxid": 8128,
+            "slen": 421,
+            "biomol": "",
+            "moltype": "aa",
+            "topology": "linear",
+            "sourcedb": "refseq",
+            "segsetsize": 0,
+            "projectid": "72943",
+            "genome": "genomic",
+            "subtype": "sex|linkage_group",
+            "subname": "female|LG5",
+            "assemblygi": 0,
+            "assemblyacc": "",
+            "tech": "",
+            "completeness": "complete",
+            "geneticcode": "1",
+            "strand": "",
+            "organism": "Nile tilapia",
+            "strain": "",
+            "statistics": [
+                {
+                    "type": "all",
+                    "count": 4
+                },
+                {
+                    "type": "blob_size",
+                    "count": 5827
+                },
+                {
+                    "type": "cdregion",
+                    "count": 1
+                },
+                {
+                    "type": "cdregion",
+                    "subtype": "CDS",
+                    "count": 1
+                },
+                {
+                    "type": "gene",
+                    "count": 1
+                },
+                {
+                    "type": "gene",
+                    "subtype": "Gene",
+                    "count": 1
+                },
+                {
+                    "type": "org",
+                    "count": 1
+                },
+                {
+                    "type": "prot",
+                    "count": 1
+                },
+                {
+                    "type": "prot",
+                    "subtype": "Prot",
+                    "count": 1
+                },
+                {
+                    "source": "all",
+                    "type": "all",
+                    "count": 4
+                },
+                {
+                    "source": "all",
+                    "type": "blob_size",
+                    "count": 5827
+                },
+                {
+                    "source": "all",
+                    "type": "cdregion",
+                    "count": 1
+                },
+                {
+                    "source": "all",
+                    "type": "gene",
+                    "count": 1
+                },
+                {
+                    "source": "all",
+                    "type": "org",
+                    "count": 1
+                },
+                {
+                    "source": "all",
+                    "type": "prot",
+                    "count": 1
+                }
+            ],
+            "properties": {
+                "aa": "2",
+                "value": "2"
+            },
+            "oslt": {
+                "indexed": true,
+                "value": "XP_013131444.1"
+            },
+            "accessionversion": "XP_013131444.1"
+        },
+        "908446940": {
+            "uid": "908446940",
+            "caption": "XP_013131443",
+            "title": "PREDICTED: src substrate cortactin isoform X2 [Oreochromis niloticus]",
+            "extra": "gi|908446940|ref|XP_013131443.1|",
+            "gi": 908446940,
+            "createdate": "2015/07/30",
+            "updatedate": "2015/07/30",
+            "flags": 512,
+            "taxid": 8128,
+            "slen": 458,
+            "biomol": "",
+            "moltype": "aa",
+            "topology": "linear",
+            "sourcedb": "refseq",
+            "segsetsize": 0,
+            "projectid": "72943",
+            "genome": "genomic",
+            "subtype": "sex|linkage_group",
+            "subname": "female|LG5",
+            "assemblygi": 0,
+            "assemblyacc": "",
+            "tech": "",
+            "completeness": "complete",
+            "geneticcode": "1",
+            "strand": "",
+            "organism": "Nile tilapia",
+            "strain": "",
+            "statistics": [
+                {
+                    "type": "all",
+                    "count": 4
+                },
+                {
+                    "type": "blob_size",
+                    "count": 5892
+                },
+                {
+                    "type": "cdregion",
+                    "count": 1
+                },
+                {
+                    "type": "cdregion",
+                    "subtype": "CDS",
+                    "count": 1
+                },
+                {
+                    "type": "gene",
+                    "count": 1
+                },
+                {
+                    "type": "gene",
+                    "subtype": "Gene",
+                    "count": 1
+                },
+                {
+                    "type": "org",
+                    "count": 1
+                },
+                {
+                    "type": "prot",
+                    "count": 1
+                },
+                {
+                    "type": "prot",
+                    "subtype": "Prot",
+                    "count": 1
+                },
+                {
+                    "source": "all",
+                    "type": "all",
+                    "count": 4
+                },
+                {
+                    "source": "all",
+                    "type": "blob_size",
+                    "count": 5892
+                },
+                {
+                    "source": "all",
+                    "type": "cdregion",
+                    "count": 1
+                },
+                {
+                    "source": "all",
+                    "type": "gene",
+                    "count": 1
+                },
+                {
+                    "source": "all",
+                    "type": "org",
+                    "count": 1
+                },
+                {
+                    "source": "all",
+                    "type": "prot",
+                    "count": 1
+                }
+            ],
+            "properties": {
+                "aa": "2",
+                "value": "2"
+            },
+            "oslt": {
+                "indexed": true,
+                "value": "XP_013131443.1"
+            },
+            "accessionversion": "XP_013131443.1"
+        },
+        "908446936": {
+            "uid": "908446936",
+            "caption": "XP_013131442",
+            "title": "PREDICTED: src substrate cortactin isoform X1 [Oreochromis niloticus]",
+            "extra": "gi|908446936|ref|XP_013131442.1|",
+            "gi": 908446936,
+            "createdate": "2015/07/30",
+            "updatedate": "2015/07/30",
+            "flags": 512,
+            "taxid": 8128,
+            "slen": 495,
+            "biomol": "",
+            "moltype": "aa",
+            "topology": "linear",
+            "sourcedb": "refseq",
+            "segsetsize": 0,
+            "projectid": "72943",
+            "genome": "genomic",
+            "subtype": "sex|linkage_group",
+            "subname": "female|LG5",
+            "assemblygi": 0,
+            "assemblyacc": "",
+            "tech": "",
+            "completeness": "complete",
+            "geneticcode": "1",
+            "strand": "",
+            "organism": "Nile tilapia",
+            "strain": "",
+            "statistics": [
+                {
+                    "type": "all",
+                    "count": 4
+                },
+                {
+                    "type": "blob_size",
+                    "count": 5956
+                },
+                {
+                    "type": "cdregion",
+                    "count": 1
+                },
+                {
+                    "type": "cdregion",
+                    "subtype": "CDS",
+                    "count": 1
+                },
+                {
+                    "type": "gene",
+                    "count": 1
+                },
+                {
+                    "type": "gene",
+                    "subtype": "Gene",
+                    "count": 1
+                },
+                {
+                    "type": "org",
+                    "count": 1
+                },
+                {
+                    "type": "prot",
+                    "count": 1
+                },
+                {
+                    "type": "prot",
+                    "subtype": "Prot",
+                    "count": 1
+                },
+                {
+                    "source": "all",
+                    "type": "all",
+                    "count": 4
+                },
+                {
+                    "source": "all",
+                    "type": "blob_size",
+                    "count": 5956
+                },
+                {
+                    "source": "all",
+                    "type": "cdregion",
+                    "count": 1
+                },
+                {
+                    "source": "all",
+                    "type": "gene",
+                    "count": 1
+                },
+                {
+                    "source": "all",
+                    "type": "org",
+                    "count": 1
+                },
+                {
+                    "source": "all",
+                    "type": "prot",
+                    "count": 1
+                }
+            ],
+            "properties": {
+                "aa": "2",
+                "value": "2"
+            },
+            "oslt": {
+                "indexed": true,
+                "value": "XP_013131442.1"
+            },
+            "accessionversion": "XP_013131442.1"
+        },
+        "908528114": {
+            "uid": "908528114",
+            "caption": "XP_013131332",
+            "title": "PREDICTED: lymphocyte antigen 6 complex locus protein G6d [Oreochromis niloticus]",
+            "extra": "gi|908528114|ref|XP_013131332.1|",
+            "gi": 908528114,
+            "createdate": "2015/07/30",
+            "updatedate": "2015/07/30",
+            "flags": 512,
+            "taxid": 8128,
+            "slen": 127,
+            "biomol": "",
+            "moltype": "aa",
+            "topology": "linear",
+            "sourcedb": "refseq",
+            "segsetsize": 0,
+            "projectid": "72943",
+            "genome": "genomic",
+            "subtype": "sex|linkage_group",
+            "subname": "female|LG22",
+            "assemblygi": 0,
+            "assemblyacc": "",
+            "tech": "",
+            "completeness": "complete",
+            "geneticcode": "1",
+            "strand": "",
+            "organism": "Nile tilapia",
+            "strain": "",
+            "statistics": [
+                {
+                    "type": "all",
+                    "count": 4
+                },
+                {
+                    "type": "blob_size",
+                    "count": 4802
+                },
+                {
+                    "type": "cdregion",
+                    "count": 1
+                },
+                {
+                    "type": "cdregion",
+                    "subtype": "CDS",
+                    "count": 1
+                },
+                {
+                    "type": "gene",
+                    "count": 1
+                },
+                {
+                    "type": "gene",
+                    "subtype": "Gene",
+                    "count": 1
+                },
+                {
+                    "type": "org",
+                    "count": 1
+                },
+                {
+                    "type": "prot",
+                    "count": 1
+                },
+                {
+                    "type": "prot",
+                    "subtype": "Prot",
+                    "count": 1
+                },
+                {
+                    "source": "all",
+                    "type": "all",
+                    "count": 4
+                },
+                {
+                    "source": "all",
+                    "type": "blob_size",
+                    "count": 4802
+                },
+                {
+                    "source": "all",
+                    "type": "cdregion",
+                    "count": 1
+                },
+                {
+                    "source": "all",
+                    "type": "gene",
+                    "count": 1
+                },
+                {
+                    "source": "all",
+                    "type": "org",
+                    "count": 1
+                },
+                {
+                    "source": "all",
+                    "type": "prot",
+                    "count": 1
+                }
+            ],
+            "properties": {
+                "aa": "2",
+                "value": "2"
+            },
+            "oslt": {
+                "indexed": true,
+                "value": "XP_013131332.1"
+            },
+            "accessionversion": "XP_013131332.1"
+        },
+        "908454923": {
+            "uid": "908454923",
+            "caption": "XP_013130912",
+            "title": "PREDICTED: protein phosphatase 1 regulatory subunit 1A [Oreochromis niloticus]",
+            "extra": "gi|908454923|ref|XP_013130912.1|",
+            "gi": 908454923,
+            "createdate": "2015/07/30",
+            "updatedate": "2015/07/30",
+            "flags": 512,
+            "taxid": 8128,
+            "slen": 208,
+            "biomol": "",
+            "moltype": "aa",
+            "topology": "linear",
+            "sourcedb": "refseq",
+            "segsetsize": 0,
+            "projectid": "72943",
+            "genome": "genomic",
+            "subtype": "sex|linkage_group",
+            "subname": "female|LG5",
+            "assemblygi": 0,
+            "assemblyacc": "",
+            "tech": "",
+            "completeness": "complete",
+            "geneticcode": "1",
+            "strand": "",
+            "organism": "Nile tilapia",
+            "strain": "",
+            "statistics": [
+                {
+                    "type": "all",
+                    "count": 4
+                },
+                {
+                    "type": "blob_size",
+                    "count": 7336
+                },
+                {
+                    "type": "cdregion",
+                    "count": 1
+                },
+                {
+                    "type": "cdregion",
+                    "subtype": "CDS",
+                    "count": 1
+                },
+                {
+                    "type": "gene",
+                    "count": 1
+                },
+                {
+                    "type": "gene",
+                    "subtype": "Gene",
+                    "count": 1
+                },
+                {
+                    "type": "org",
+                    "count": 1
+                },
+                {
+                    "type": "prot",
+                    "count": 1
+                },
+                {
+                    "type": "prot",
+                    "subtype": "Prot",
+                    "count": 1
+                },
+                {
+                    "source": "all",
+                    "type": "all",
+                    "count": 4
+                },
+                {
+                    "source": "all",
+                    "type": "blob_size",
+                    "count": 7336
+                },
+                {
+                    "source": "all",
+                    "type": "cdregion",
+                    "count": 1
+                },
+                {
+                    "source": "all",
+                    "type": "gene",
+                    "count": 1
+                },
+                {
+                    "source": "all",
+                    "type": "org",
+                    "count": 1
+                },
+                {
+                    "source": "all",
+                    "type": "prot",
+                    "count": 1
+                }
+            ],
+            "properties": {
+                "aa": "2",
+                "value": "2"
+            },
+            "oslt": {
+                "indexed": true,
+                "value": "XP_013130912.1"
+            },
+            "accessionversion": "XP_013130912.1"
+        },
+        "908498535": {
+            "uid": "908498535",
+            "caption": "XP_013130468",
+            "title": "PREDICTED: membrane-spanning 4-domains subfamily A member 8 [Oreochromis niloticus]",
+            "extra": "gi|908498535|ref|XP_013130468.1|",
+            "gi": 908498535,
+            "createdate": "2015/07/30",
+            "updatedate": "2015/07/30",
+            "flags": 512,
+            "taxid": 8128,
+            "slen": 197,
+            "biomol": "",
+            "moltype": "aa",
+            "topology": "linear",
+            "sourcedb": "refseq",
+            "segsetsize": 0,
+            "projectid": "72943",
+            "genome": "genomic",
+            "subtype": "sex|linkage_group",
+            "subname": "female|LG11",
+            "assemblygi": 0,
+            "assemblyacc": "",
+            "tech": "",
+            "completeness": "complete",
+            "geneticcode": "1",
+            "strand": "",
+            "organism": "Nile tilapia",
+            "strain": "",
+            "statistics": [
+                {
+                    "type": "all",
+                    "count": 4
+                },
+                {
+                    "type": "blob_size",
+                    "count": 5156
+                },
+                {
+                    "type": "cdregion",
+                    "count": 1
+                },
+                {
+                    "type": "cdregion",
+                    "subtype": "CDS",
+                    "count": 1
+                },
+                {
+                    "type": "gene",
+                    "count": 1
+                },
+                {
+                    "type": "gene",
+                    "subtype": "Gene",
+                    "count": 1
+                },
+                {
+                    "type": "org",
+                    "count": 1
+                },
+                {
+                    "type": "prot",
+                    "count": 1
+                },
+                {
+                    "type": "prot",
+                    "subtype": "Prot",
+                    "count": 1
+                },
+                {
+                    "source": "all",
+                    "type": "all",
+                    "count": 4
+                },
+                {
+                    "source": "all",
+                    "type": "blob_size",
+                    "count": 5156
+                },
+                {
+                    "source": "all",
+                    "type": "cdregion",
+                    "count": 1
+                },
+                {
+                    "source": "all",
+                    "type": "gene",
+                    "count": 1
+                },
+                {
+                    "source": "all",
+                    "type": "org",
+                    "count": 1
+                },
+                {
+                    "source": "all",
+                    "type": "prot",
+                    "count": 1
+                }
+            ],
+            "properties": {
+                "aa": "2",
+                "value": "2"
+            },
+            "oslt": {
+                "indexed": true,
+                "value": "XP_013130468.1"
+            },
+            "accessionversion": "XP_013130468.1"
+        },
+        "908535323": {
+            "uid": "908535323",
+            "caption": "XP_013127884",
+            "title": "PREDICTED: biorientation of chromosomes in cell division protein 1 [Oreochromis niloticus]",
+            "extra": "gi|908535323|ref|XP_013127884.1|",
+            "gi": 908535323,
+            "createdate": "2015/07/30",
+            "updatedate": "2015/07/30",
+            "flags": 512,
+            "taxid": 8128,
+            "slen": 162,
+            "biomol": "",
+            "moltype": "aa",
+            "topology": "linear",
+            "sourcedb": "refseq",
+            "segsetsize": 0,
+            "projectid": "72943",
+            "genome": "genomic",
+            "subtype": "sex|chromosome",
+            "subname": "female|Unknown",
+            "assemblygi": 0,
+            "assemblyacc": "",
+            "tech": "",
+            "completeness": "complete",
+            "geneticcode": "1",
+            "strand": "",
+            "organism": "Nile tilapia",
+            "strain": "",
+            "statistics": [
+                {
+                    "type": "all",
+                    "count": 4
+                },
+                {
+                    "type": "blob_size",
+                    "count": 5238
+                },
+                {
+                    "type": "cdregion",
+                    "count": 1
+                },
+                {
+                    "type": "cdregion",
+                    "subtype": "CDS",
+                    "count": 1
+                },
+                {
+                    "type": "gene",
+                    "count": 1
+                },
+                {
+                    "type": "gene",
+                    "subtype": "Gene",
+                    "count": 1
+                },
+                {
+                    "type": "org",
+                    "count": 1
+                },
+                {
+                    "type": "prot",
+                    "count": 1
+                },
+                {
+                    "type": "prot",
+                    "subtype": "Prot",
+                    "count": 1
+                },
+                {
+                    "source": "all",
+                    "type": "all",
+                    "count": 4
+                },
+                {
+                    "source": "all",
+                    "type": "blob_size",
+                    "count": 5238
+                },
+                {
+                    "source": "all",
+                    "type": "cdregion",
+                    "count": 1
+                },
+                {
+                    "source": "all",
+                    "type": "gene",
+                    "count": 1
+                },
+                {
+                    "source": "all",
+                    "type": "org",
+                    "count": 1
+                },
+                {
+                    "source": "all",
+                    "type": "prot",
+                    "count": 1
+                }
+            ],
+            "properties": {
+                "aa": "2",
+                "value": "2"
+            },
+            "oslt": {
+                "indexed": true,
+                "value": "XP_013127884.1"
+            },
+            "accessionversion": "XP_013127884.1"
+        },
+        "908535320": {
+            "uid": "908535320",
+            "caption": "XP_013127883",
+            "title": "PREDICTED: biorientation of chromosomes in cell division protein 1 [Oreochromis niloticus]",
+            "extra": "gi|908535320|ref|XP_013127883.1|",
+            "gi": 908535320,
+            "createdate": "2015/07/30",
+            "updatedate": "2015/07/30",
+            "flags": 512,
+            "taxid": 8128,
+            "slen": 162,
+            "biomol": "",
+            "moltype": "aa",
+            "topology": "linear",
+            "sourcedb": "refseq",
+            "segsetsize": 0,
+            "projectid": "72943",
+            "genome": "genomic",
+            "subtype": "sex|chromosome",
+            "subname": "female|Unknown",
+            "assemblygi": 0,
+            "assemblyacc": "",
+            "tech": "",
+            "completeness": "complete",
+            "geneticcode": "1",
+            "strand": "",
+            "organism": "Nile tilapia",
+            "strain": "",
+            "statistics": [
+                {
+                    "type": "all",
+                    "count": 4
+                },
+                {
+                    "type": "blob_size",
+                    "count": 5233
+                },
+                {
+                    "type": "cdregion",
+                    "count": 1
+                },
+                {
+                    "type": "cdregion",
+                    "subtype": "CDS",
+                    "count": 1
+                },
+                {
+                    "type": "gene",
+                    "count": 1
+                },
+                {
+                    "type": "gene",
+                    "subtype": "Gene",
+                    "count": 1
+                },
+                {
+                    "type": "org",
+                    "count": 1
+                },
+                {
+                    "type": "prot",
+                    "count": 1
+                },
+                {
+                    "type": "prot",
+                    "subtype": "Prot",
+                    "count": 1
+                },
+                {
+                    "source": "all",
+                    "type": "all",
+                    "count": 4
+                },
+                {
+                    "source": "all",
+                    "type": "blob_size",
+                    "count": 5233
+                },
+                {
+                    "source": "all",
+                    "type": "cdregion",
+                    "count": 1
+                },
+                {
+                    "source": "all",
+                    "type": "gene",
+                    "count": 1
+                },
+                {
+                    "source": "all",
+                    "type": "org",
+                    "count": 1
+                },
+                {
+                    "source": "all",
+                    "type": "prot",
+                    "count": 1
+                }
+            ],
+            "properties": {
+                "aa": "2",
+                "value": "2"
+            },
+            "oslt": {
+                "indexed": true,
+                "value": "XP_013127883.1"
+            },
+            "accessionversion": "XP_013127883.1"
+        },
+        "908510771": {
+            "uid": "908510771",
+            "caption": "XP_013127329",
+            "title": "PREDICTED: complex III assembly factor LYRM7 [Oreochromis niloticus]",
+            "extra": "gi|908510771|ref|XP_013127329.1|",
+            "gi": 908510771,
+            "createdate": "2015/07/30",
+            "updatedate": "2015/07/30",
+            "flags": 512,
+            "taxid": 8128,
+            "slen": 104,
+            "biomol": "",
+            "moltype": "aa",
+            "topology": "linear",
+            "sourcedb": "refseq",
+            "segsetsize": 0,
+            "projectid": "72943",
+            "genome": "genomic",
+            "subtype": "sex|linkage_group",
+            "subname": "female|LG13",
+            "assemblygi": 0,
+            "assemblyacc": "",
+            "tech": "",
+            "completeness": "complete",
+            "geneticcode": "1",
+            "strand": "",
+            "organism": "Nile tilapia",
+            "strain": "",
+            "statistics": [
+                {
+                    "type": "all",
+                    "count": 4
+                },
+                {
+                    "type": "blob_size",
+                    "count": 4975
+                },
+                {
+                    "type": "cdregion",
+                    "count": 1
+                },
+                {
+                    "type": "cdregion",
+                    "subtype": "CDS",
+                    "count": 1
+                },
+                {
+                    "type": "gene",
+                    "count": 1
+                },
+                {
+                    "type": "gene",
+                    "subtype": "Gene",
+                    "count": 1
+                },
+                {
+                    "type": "org",
+                    "count": 1
+                },
+                {
+                    "type": "prot",
+                    "count": 1
+                },
+                {
+                    "type": "prot",
+                    "subtype": "Prot",
+                    "count": 1
+                },
+                {
+                    "source": "all",
+                    "type": "all",
+                    "count": 4
+                },
+                {
+                    "source": "all",
+                    "type": "blob_size",
+                    "count": 4975
+                },
+                {
+                    "source": "all",
+                    "type": "cdregion",
+                    "count": 1
+                },
+                {
+                    "source": "all",
+                    "type": "gene",
+                    "count": 1
+                },
+                {
+                    "source": "all",
+                    "type": "org",
+                    "count": 1
+                },
+                {
+                    "source": "all",
+                    "type": "prot",
+                    "count": 1
+                }
+            ],
+            "properties": {
+                "aa": "2",
+                "value": "2"
+            },
+            "oslt": {
+                "indexed": true,
+                "value": "XP_013127329.1"
+            },
+            "accessionversion": "XP_013127329.1"
+        },
+        "908431187": {
+            "uid": "908431187",
+            "caption": "XP_013126785",
+            "title": "PREDICTED: apelin [Oreochromis niloticus]",
+            "extra": "gi|908431187|ref|XP_013126785.1|",
+            "gi": 908431187,
+            "createdate": "2015/07/30",
+            "updatedate": "2015/07/30",
+            "flags": 512,
+            "taxid": 8128,
+            "slen": 77,
+            "biomol": "",
+            "moltype": "aa",
+            "topology": "linear",
+            "sourcedb": "refseq",
+            "segsetsize": 0,
+            "projectid": "72943",
+            "genome": "genomic",
+            "subtype": "sex|linkage_group",
+            "subname": "female|LG2",
+            "assemblygi": 0,
+            "assemblyacc": "",
+            "tech": "",
+            "completeness": "complete",
+            "geneticcode": "1",
+            "strand": "",
+            "organism": "Nile tilapia",
+            "strain": "",
+            "statistics": [
+                {
+                    "type": "all",
+                    "count": 4
+                },
+                {
+                    "type": "blob_size",
+                    "count": 5918
+                },
+                {
+                    "type": "cdregion",
+                    "count": 1
+                },
+                {
+                    "type": "cdregion",
+                    "subtype": "CDS",
+                    "count": 1
+                },
+                {
+                    "type": "gene",
+                    "count": 1
+                },
+                {
+                    "type": "gene",
+                    "subtype": "Gene",
+                    "count": 1
+                },
+                {
+                    "type": "org",
+                    "count": 1
+                },
+                {
+                    "type": "prot",
+                    "count": 1
+                },
+                {
+                    "type": "prot",
+                    "subtype": "Prot",
+                    "count": 1
+                },
+                {
+                    "source": "all",
+                    "type": "all",
+                    "count": 4
+                },
+                {
+                    "source": "all",
+                    "type": "blob_size",
+                    "count": 5918
+                },
+                {
+                    "source": "all",
+                    "type": "cdregion",
+                    "count": 1
+                },
+                {
+                    "source": "all",
+                    "type": "gene",
+                    "count": 1
+                },
+                {
+                    "source": "all",
+                    "type": "org",
+                    "count": 1
+                },
+                {
+                    "source": "all",
+                    "type": "prot",
+                    "count": 1
+                }
+            ],
+            "properties": {
+                "aa": "2",
+                "value": "2"
+            },
+            "oslt": {
+                "indexed": true,
+                "value": "XP_013126785.1"
+            },
+            "accessionversion": "XP_013126785.1"
+        },
+        "908529763": {
+            "uid": "908529763",
+            "caption": "XP_013125946",
+            "title": "PREDICTED: cAMP-dependent protein kinase inhibitor beta isoform X2 [Oreochromis niloticus]",
+            "extra": "gi|908529763|ref|XP_013125946.1|",
+            "gi": 908529763,
+            "createdate": "2015/07/30",
+            "updatedate": "2015/07/30",
+            "flags": 512,
+            "taxid": 8128,
+            "slen": 74,
+            "biomol": "",
+            "moltype": "aa",
+            "topology": "linear",
+            "sourcedb": "refseq",
+            "segsetsize": 0,
+            "projectid": "72943",
+            "genome": "genomic",
+            "subtype": "sex|linkage_group",
+            "subname": "female|LG22",
+            "assemblygi": 0,
+            "assemblyacc": "",
+            "tech": "",
+            "completeness": "complete",
+            "geneticcode": "1",
+            "strand": "",
+            "organism": "Nile tilapia",
+            "strain": "",
+            "statistics": [
+                {
+                    "type": "all",
+                    "count": 4
+                },
+                {
+                    "type": "blob_size",
+                    "count": 5432
+                },
+                {
+                    "type": "cdregion",
+                    "count": 1
+                },
+                {
+                    "type": "cdregion",
+                    "subtype": "CDS",
+                    "count": 1
+                },
+                {
+                    "type": "gene",
+                    "count": 1
+                },
+                {
+                    "type": "gene",
+                    "subtype": "Gene",
+                    "count": 1
+                },
+                {
+                    "type": "org",
+                    "count": 1
+                },
+                {
+                    "type": "prot",
+                    "count": 1
+                },
+                {
+                    "type": "prot",
+                    "subtype": "Prot",
+                    "count": 1
+                },
+                {
+                    "source": "all",
+                    "type": "all",
+                    "count": 4
+                },
+                {
+                    "source": "all",
+                    "type": "blob_size",
+                    "count": 5432
+                },
+                {
+                    "source": "all",
+                    "type": "cdregion",
+                    "count": 1
+                },
+                {
+                    "source": "all",
+                    "type": "gene",
+                    "count": 1
+                },
+                {
+                    "source": "all",
+                    "type": "org",
+                    "count": 1
+                },
+                {
+                    "source": "all",
+                    "type": "prot",
+                    "count": 1
+                }
+            ],
+            "properties": {
+                "aa": "2",
+                "value": "2"
+            },
+            "oslt": {
+                "indexed": true,
+                "value": "XP_013125946.1"
+            },
+            "accessionversion": "XP_013125946.1"
+        },
+        "908529760": {
+            "uid": "908529760",
+            "caption": "XP_013125945",
+            "title": "PREDICTED: cAMP-dependent protein kinase inhibitor beta isoform X1 [Oreochromis niloticus]",
+            "extra": "gi|908529760|ref|XP_013125945.1|",
+            "gi": 908529760,
+            "createdate": "2015/07/30",
+            "updatedate": "2015/07/30",
+            "flags": 512,
+            "taxid": 8128,
+            "slen": 99,
+            "biomol": "",
+            "moltype": "aa",
+            "topology": "linear",
+            "sourcedb": "refseq",
+            "segsetsize": 0,
+            "projectid": "72943",
+            "genome": "genomic",
+            "subtype": "sex|linkage_group",
+            "subname": "female|LG22",
+            "assemblygi": 0,
+            "assemblyacc": "",
+            "tech": "",
+            "completeness": "complete",
+            "geneticcode": "1",
+            "strand": "",
+            "organism": "Nile tilapia",
+            "strain": "",
+            "statistics": [
+                {
+                    "type": "all",
+                    "count": 4
+                },
+                {
+                    "type": "blob_size",
+                    "count": 5518
+                },
+                {
+                    "type": "cdregion",
+                    "count": 1
+                },
+                {
+                    "type": "cdregion",
+                    "subtype": "CDS",
+                    "count": 1
+                },
+                {
+                    "type": "gene",
+                    "count": 1
+                },
+                {
+                    "type": "gene",
+                    "subtype": "Gene",
+                    "count": 1
+                },
+                {
+                    "type": "org",
+                    "count": 1
+                },
+                {
+                    "type": "prot",
+                    "count": 1
+                },
+                {
+                    "type": "prot",
+                    "subtype": "Prot",
+                    "count": 1
+                },
+                {
+                    "source": "all",
+                    "type": "all",
+                    "count": 4
+                },
+                {
+                    "source": "all",
+                    "type": "blob_size",
+                    "count": 5518
+                },
+                {
+                    "source": "all",
+                    "type": "cdregion",
+                    "count": 1
+                },
+                {
+                    "source": "all",
+                    "type": "gene",
+                    "count": 1
+                },
+                {
+                    "source": "all",
+                    "type": "org",
+                    "count": 1
+                },
+                {
+                    "source": "all",
+                    "type": "prot",
+                    "count": 1
+                }
+            ],
+            "properties": {
+                "aa": "2",
+                "value": "2"
+            },
+            "oslt": {
+                "indexed": true,
+                "value": "XP_013125945.1"
+            },
+            "accessionversion": "XP_013125945.1"
+        }
+    }
+}
+

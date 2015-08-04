@@ -142,6 +142,6 @@ LOGGING = {
 # Gene protein tool settings
 GPT = {
     'max_genes': 10,
-    'max_proteins': 25,
+    'max_proteins': 30,
     'max_proteins_per_gene': 3,
 }

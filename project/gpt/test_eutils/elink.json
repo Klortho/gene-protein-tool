@@ -1,0 +1,163 @@
+{
+    "header": {
+        "type": "elink",
+        "version": "0.3"
+    },
+    "linksets": [
+        {
+            "dbfrom": "gene",
+            "ids": [
+                106099058
+            ],
+            "linksetdbs": [
+                {
+                    "dbto": "protein",
+                    "linkname": "gene_protein",
+                    "links": [
+                        908541558
+                    ]
+                }
+            ]
+        },
+        {
+            "dbfrom": "gene",
+            "ids": [
+                106099000
+            ],
+            "linksetdbs": [
+                {
+                    "dbto": "protein",
+                    "linkname": "gene_protein",
+                    "links": [
+                        908512451
+                    ]
+                }
+            ]
+        },
+        {
+            "dbfrom": "gene",
+            "ids": [
+                106098772
+            ],
+            "linksetdbs": [
+                {
+                    "dbto": "protein",
+                    "linkname": "gene_protein",
+                    "links": [
+                        908446945,
+                        908446940,
+                        908446936
+                    ]
+                }
+            ]
+        },
+        {
+            "dbfrom": "gene",
+            "ids": [
+                106098764
+            ],
+            "linksetdbs": [
+                {
+                    "dbto": "protein",
+                    "linkname": "gene_protein",
+                    "links": [
+                        908528114
+                    ]
+                }
+            ]
+        },
+        {
+            "dbfrom": "gene",
+            "ids": [
+                106098726
+            ],
+            "linksetdbs": [
+                {
+                    "dbto": "protein",
+                    "linkname": "gene_protein",
+                    "links": [
+                        908454923
+                    ]
+                }
+            ]
+        },
+        {
+            "dbfrom": "gene",
+            "ids": [
+                106098694
+            ],
+            "linksetdbs": [
+                {
+                    "dbto": "protein",
+                    "linkname": "gene_protein",
+                    "links": [
+                        908498535
+                    ]
+                }
+            ]
+        },
+        {
+            "dbfrom": "gene",
+            "ids": [
+                106098364
+            ],
+            "linksetdbs": [
+                {
+                    "dbto": "protein",
+                    "linkname": "gene_protein",
+                    "links": [
+                        908535323,
+                        908535320
+                    ]
+                }
+            ]
+        },
+        {
+            "dbfrom": "gene",
+            "ids": [
+                106098298
+            ],
+            "linksetdbs": [
+                {
+                    "dbto": "protein",
+                    "linkname": "gene_protein",
+                    "links": [
+                        908510771
+                    ]
+                }
+            ]
+        },
+        {
+            "dbfrom": "gene",
+            "ids": [
+                106098248
+            ],
+            "linksetdbs": [
+                {
+                    "dbto": "protein",
+                    "linkname": "gene_protein",
+                    "links": [
+                        908431187
+                    ]
+                }
+            ]
+        },
+        {
+            "dbfrom": "gene",
+            "ids": [
+                106098126
+            ],
+            "linksetdbs": [
+                {
+                    "dbto": "protein",
+                    "linkname": "gene_protein",
+                    "links": [
+                        908529763,
+                        908529760
+                    ]
+                }
+            ]
+        }
+    ]
+}
+

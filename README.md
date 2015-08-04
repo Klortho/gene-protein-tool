@@ -17,6 +17,11 @@ If you set the GTP_LOG_FILE environment variable, you can put that anywhere you 
 
 ## Testing
 
+To run tests:
+
+```
+./manage.py test
+```
 
 ### Testing eutils
 
@@ -33,11 +38,11 @@ The test responses are from here:
 
 ## To do
 
-* Refactor, and implement some tests
+* ✓Refactor, and implement some tests
     * ✓Move the code I have now to a ResultSet constructor
     * ✓Need to actually construct all of the objects.
         * Construct the proteins
-    * Use a setting switch, and static versions of eutils json responses, to
+    * ✓Use a setting switch, and static versions of eutils json responses, to
       define a set of tests that will run "standalone"
         * For testing, use query "human", max_genes = 10, max_proteins_per_gene = 3,
           max_proteins = 25.
@@ -45,5 +50,21 @@ The test responses are from here:
             - ✓Saved in esearch_human.json,
               to where? Look at how log file dir is specified, and copy that.
             - ✓Implemented in esearch()
-    * Write the tests
+    * ✓Write the tests. Close enough: I can't get a test working for the limit of the number
+      of proteins, because when the ResultSet is constructed, that number comes from the
+      eutilities result.
+
+* ✓Save the data into the database
+    * ✓Try to treat UIDs as integers everywhere
+    * ✓Create gene objects
+    * ✓Create protein objects
+    * ✓Wire proteins to genes
+    * ✓Create ResultSet object
+    * ✓Wire genes to ResultSet
+
+
+
+
+
+
 

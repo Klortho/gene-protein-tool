@@ -15,7 +15,7 @@ logger = logging.getLogger(__name__)
 # For automated test, using static json files for eutils responses
 gpt_base_dir = apps.get_app_config('gpt').path
 test_eutils_dir = os.path.join(gpt_base_dir, "test_eutils")
-test_eutils = True 
+test_eutils = False 
 
 def read_test_file(name):
     logger.info("Fake eutils call; getting data from " + name)
@@ -49,6 +49,8 @@ def esummary(idlist, db='gene'):
 
     if (test_eutils == True and db == "gene"):
         resp_str = read_test_file("esummary_genes.json")
+    elif (test_eutils == True and db == "protein"):
+        resp_str = read_test_file("esummary_proteins.json")
     else:
         logger.info("EUtilities call '" + url + "'")
         resp_str = urlopen(url).readall().decode('utf-8')
@@ -64,8 +66,13 @@ def elink(idlist, dbfrom='gene', db='protein', linkname='gene_protein'):
         '&dbfrom=' + dbfrom + '&db=' + db + '&linkname=' + linkname +
         '&' + '&'.join(map( (lambda x: 'id=' + x), idlist_str ))
     )
-    logger.info("EUtilities call '" + url + "'")
-    resp_str = urlopen(url).readall().decode('utf-8')
+
+    if (test_eutils == True):
+        resp_str = read_test_file("elink.json")
+    else:
+        logger.info("EUtilities call '" + url + "'")
+        resp_str = urlopen(url).readall().decode('utf-8')
+
     return json.loads(resp_str)['linksets']
 
 
