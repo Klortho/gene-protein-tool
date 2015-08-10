@@ -41,6 +41,8 @@ def esearch(term, db='gene', retmax=None):
 
 
 def esummary(idlist, db='gene'):
+    if (len(idlist) == 0): return None
+
     idlist_str = idlist if type(idlist[0]) is str else map(str, idlist)
     url = (
         eutils_base + '/esummary.fcgi?tool=' + tool + '&email=' + email + '&retmode=json' +
@@ -59,6 +61,8 @@ def esummary(idlist, db='gene'):
 
 # FIXME: which linkname should we use? gene_protein, or gene_protein_refseq?
 def elink(idlist, dbfrom='gene', db='protein', linkname='gene_protein'):
+    if (len(idlist) == 0): return None
+
     idlist_str = idlist if type(idlist[0]) is str else map(str, idlist)
     url = (
         eutils_base + '/elink.fcgi?tool=' + tool + '&email=' + email + '&retmode=json' +

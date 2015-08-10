@@ -5,6 +5,7 @@ import logging
 from project.settings import GPT
 
 logger = logging.getLogger(__name__)
+pp = pprint.PrettyPrinter(indent=4)
 
 
 class Gene(models.Model):
@@ -106,6 +107,9 @@ class ResultSet(models.Model):
         pid_to_gene = {}
         gene_num = 0
         for linkset_gene in elink_result:
+            print("linkset_gene: ")
+            pp.pprint(linkset_gene)
+
             # Enforce max_genes here, too. This shouldn't be necessary, but doesn't hurt:
             if (gene_num >= max_genes): break
 
@@ -114,19 +118,20 @@ class ResultSet(models.Model):
             gene = gid_to_gene[gid]
 
             # Get protein ids as integers. Limit the number of proteins per gene
-            gene_pids = list(map(int,
-                linkset_gene['linksetdbs'][0]['links'][0:max_proteins_per_gene]
-            ))
-            for pid in gene_pids:
-                pid_to_gene[pid] = gene
+            if 'linksetdbs' in linkset_gene:
+                gene_pids = list(map(int,
+                    linkset_gene['linksetdbs'][0]['links'][0:max_proteins_per_gene]
+                ))
+                for pid in gene_pids:
+                    pid_to_gene[pid] = gene
+                pids.extend(gene_pids)
 
-            pids.extend(gene_pids)
             gene_num = gene_num + 1
 
         # Do ESummary, db=protein, to get info about these proteins; create objects
         # -------------------------------------------------------------------------
 
-        #logger.info('pids: ' + ",".join(map(str, pids)))
+        print('>>>>>>>>>> pids: ' + ",".join(map(str, pids)))
         esummary_proteins = esummary(pids, db='protein')
         rs.esummary_proteins = esummary_proteins   # for debugging
         proteins = rs.proteins = []

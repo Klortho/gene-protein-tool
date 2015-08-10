@@ -1,6 +1,48 @@
 # Gene protein tool
 
+To run this:
+
+```
+git clone https://github.com/Klortho/gene-protein-tool.git
+cd gene-protein-tool
+pyvenv env
+source env/bin/activate
+```
+
+***FIXME: install dependencies? requirements.txt? ***
+
+To run the service:
+
+```
+cd project
+./manage.py runserver
+```
+
+
+
 ## Models / database schema
+
+Right now, this uses a SQLite database.  To connect directly to the
+database:
+
+```
+cd project
+sqlite3 db.sqlite3
+```
+
+Then, examine tables with, for example,
+
+```
+.tables  # list all the tables
+select * from gpt_gene 
+...
+```
+
+To get out of the SQLite interpreter:
+
+```
+.exit
+```
 
 
 
@@ -74,16 +116,47 @@ The test responses are from here:
 * [esummary_proteins.json](http://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?tool=gene-protein-tool&email=voldrani@gmail.com&retmode=json&db=protein&id=908541558,908512451,908446945,908446940,908446936,908528114,908454923,908498535,908535323,908535320,908510771,908431187,908529763,908529760)
 
 
+
+## Development / debugging
+
+
+### Django admin app
+
+Connect to the django admin app at [http://localhost:8000/admin/]().
+
+
+### Django shell
+
+You can connect to the django console with:
+
+```
+cd project
+./manage.py shell_plus
+```
+
+This uses `shell_plus`, which preloads the models, plus some eutils routines,
+as specified by `SHELL_PLUS_PRE_IMPORTS` in settings.py.
+
+
+
+
 ## To do
 
-* ✓Get rid of max_proteins.
-* ✓Save the query into the ResultSet
-* ✓Add archive field to all records
+* Work on display page 
 
-* ✓For proteins UIDs that we've seen before, update rather than create new. 
-* ✓For genes
-* ✓For results sets
 
+* Edge cases:
+    * queries that return no genes
+    * genes that have no proteins (e.g. 106144534)
+    * queries that have a set of genes that have no proteins (e.g. 106144534,
+      106144532)
+
+
+* Before submitting this:
+    * Search and destroy `FIXME`
+    * In settings, change max_genes and max_proteins_per_gene back to defaults
+    * Make sure this README is up-to-date with instructions on how to use it.
+      Go through setting it up on a pristine server. Will it work on bfx?
 
 
 
