@@ -12,11 +12,32 @@ class Gene(models.Model):
     uid = models.IntegerField()
     name = models.CharField(max_length = 20)
     description = models.CharField(max_length = 200)
+    chromosome = models.CharField(max_length = 10)
+    geneticsource = models.CharField(max_length = 30)
+    organism_name = models.CharField(max_length = 100)
+    organism_commonname = models.CharField(max_length = 50)
+    organism_taxid = models.IntegerField()
     summary = models.TextField()
     archive = models.BooleanField(default = False)
 
     def __str__(self):
         return "gene " + str(self.uid) + ": '" + self.name + "'"
+
+class GenomicInfo(models.Model):
+    gene = models.ForeignKey(Gene)
+    chrloc = models.CharField(max_length = 20)
+    chraccver = models.CharField(max_length = 20)
+    chrstart = models.IntegerField()
+    chrstop = models.IntegerField()
+    exoncount = models.IntegerField()
+
+class LocationHist(models.Model):
+    gene = models.ForeignKey(Gene)
+    annotationrelease = models.CharField(max_length = 20)
+    assemblyaccver = models.CharField(max_length = 30)
+    chraccver = models.CharField(max_length = 20)
+    chrstart = models.IntegerField()
+    chrstop = models.IntegerField()
 
 class Protein(models.Model):
     gene = models.ForeignKey(Gene)
@@ -70,7 +91,10 @@ class ResultSet(models.Model):
         esummary_genes = esummary(gids, db='gene')
         rs.esummary_genes = esummary_genes  # for debugging
         my_genes = rs.my_genes = []
+        my_genomic_infos = []
+        my_location_hists = []
         gid_to_gene = {}   # cross reference a gene's UID to the Gene object
+
         for gid in gids:
             # FIXME: deal with error, when gid isn't found in JSON results
             esummary_gene = esummary_genes[str(gid)]
@@ -85,7 +109,39 @@ class ResultSet(models.Model):
             # FIXME: deal with errors when expected keys are not found in the JSON
             g.name = esummary_gene['name']
             g.description = esummary_gene['description']
+            g.chromosome = esummary_gene['chromosome']
+            g.geneticsource = esummary_gene['geneticsource']
+            org = esummary_gene['organism']
+            g.organism_name = org['scientificname']
+            g.organism_commonname = org['commonname']
+            g.organism_taxid = org['taxid']
             g.summary = esummary_gene['summary']
+
+            # FIXME: for each genomic info, I need to see if it already exists in
+            # the database (esp. if this gene is being updated, rather than being
+            # created new)
+            for eginfo in esummary_gene['genomicinfo']:
+                ginfo = GenomicInfo()
+                ginfo.my_gene = g
+                ginfo.chrloc = eginfo['chrloc']
+                ginfo.chraccver = eginfo['chraccver']
+                ginfo.chrstart = eginfo['chrstart']
+                ginfo.chrstop = eginfo['chrstop']
+                ginfo.exoncount = eginfo['exoncount']
+                my_genomic_infos.append(ginfo)
+
+            # FIXME: same, for LocationHist
+            for elochist in esummary_gene['locationhist']:
+                lochist = LocationHist()
+                lochist.my_gene = g
+                lochist.annotationrelease = elochist['annotationrelease']
+                lochist.assemblyaccver = elochist['assemblyaccver']
+                lochist.chraccver = elochist['chraccver']
+                lochist.chrstart = elochist['chrstart']
+                lochist.chrstop = elochist['chrstop']
+                my_location_hists.append(lochist)
+
+
 
             logger.debug(debug_msg + str(g))
             my_genes.append(g)
@@ -158,6 +214,14 @@ class ResultSet(models.Model):
         for g in my_genes:
             g.save()
             rs.genes.add(g)
+
+        for ginfo in my_genomic_infos:
+            ginfo.gene = ginfo.my_gene
+            ginfo.save()
+
+        for lochist in my_location_hists:
+            lochist.gene = lochist.my_gene
+            lochist.save()
 
         for p in proteins:
             p.gene = pid_to_gene[p.uid]

@@ -145,6 +145,10 @@ as specified by `SHELL_PLUS_PRE_IMPORTS` in settings.py.
 * Work on display page 
 
 
+
+* Modularize the templates, so that there's only one `base`, that provides the overall
+  styles and JS, and others just insert the content.
+  
 * Edge cases:
     * queries that return no genes
     * genes that have no proteins (e.g. 106144534)

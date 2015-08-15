@@ -12,9 +12,9 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.AddField(
-            model_name='protein',
+            model_name='genomicinfo',
             name='gene',
-            field=models.ForeignKey(to='gpt.Gene', default=None),
+            field=models.ForeignKey(to='gpt.Gene', default=1),
             preserve_default=False,
         ),
     ]

@@ -15,7 +15,7 @@ logger = logging.getLogger(__name__)
 # For automated test, using static json files for eutils responses
 gpt_base_dir = apps.get_app_config('gpt').path
 test_eutils_dir = os.path.join(gpt_base_dir, "test_eutils")
-test_eutils = False 
+test_eutils = True 
 
 def read_test_file(name):
     logger.info("Fake eutils call; getting data from " + name)
