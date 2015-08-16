@@ -1,83 +1,82 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <title>Gene / protein search tool</title>
-  </head>
-  <body>
-    <h1>Results set</h1>
+{% extends "gpt/base.html" %}
 
-    <h2>context</h2>
-    <table>
-      {% for key, value in context().items() %}
-        <tr>
-          <td>{{key}}</td>
-          <td>{{value}}</td>
-        </tr>
-      {% endfor %}
-    </table>
+{% block title %}Results{% endblock %}
 
-    <h2>Result set</h2>
-  <!--
-    <pre>{{ pp(getmembers(resultset)) }}</pre>
-    <p>resultset.genes.all(): {{resultset.genes.all()}}</p>
-  -->
-    <p>Query: {{ resultset.query }}</p>
-    <p>
-    {% for g in resultset.genes.all() %}
-      <div>
-        <h3>Gene {{ g.uid }}</h3>
+{% block content %}
+  <h1>Results set</h1>
 
-        {{ g.description }},
-        {{ g.chromosome }},
-        {{ g.geneticsource }},
-        {{ g.organism_name }},
-        {{ g.organism_commonname }},
-        {{ g.organism_taxid }},
-        {{ g.summary }},
-
-        {% for ginfo in g.genomicinfo_set.all() %}
-          <div>
-            {{ ginfo.chrloc }},
-            {{ ginfo.chraccver }},
-            {{ ginfo.chrstart }},
-            {{ ginfo.chrstop }},
-            {{ ginfo.exoncount }}
-          </div>
-        {% endfor %}
-
-        {% for lochist in g.locationhist_set.all() %}
-          <div>
-            {{ lochist.annotationrelease }},
-            {{ lochist.assemblyaccver }},
-            {{ lochist.chraccver }},
-            {{ lochist.chrstart }},
-            {{ lochist.chrstop }},
-          </div>
-        {% endfor %}
-
-        {% for p in g.protein_set.all() %}
-          <h4>Protein {{ p.uid }}</h4>
-          <div>
-            {{ p.caption }},
-            {{ p.title }},
-            {{ p.extra }},
-            {{ p.gi }},
-            {{ p.createdate }},
-            {{ p.updatedate }},
-            {{ p.taxid }},
-            {{ p.slen }},
-            {{ p.projectid }},
-            {{ p.genome }},
-            {{ p.organism }},
-          </div>
-        {% endfor %}
-
-
-
-
-      </div>
+<!--
+  <h2>context</h2>
+  <table>
+    {% for key, value in context().items() %}
+      <tr>
+        <td>{{key}}</td>
+        <td>{{value}}</td>
+      </tr>
     {% endfor %}
-    </p>
-  </body>
-</html>
+  </table>
+-->
+
+<!--
+  <pre>{{ pp(getmembers(resultset)) }}</pre>
+  <p>resultset.genes.all(): {{resultset.genes.all()}}</p>
+-->
+  <p>Query: {{ resultset.query }}</p>
+  <p>
+  {% for g in resultset.genes.all() %}
+    <div>
+      <h3>Gene {{ g.uid }}</h3>
+
+      {{ g.description }},
+      {{ g.chromosome }},
+      {{ g.geneticsource }},
+      {{ g.organism_name }},
+      {{ g.organism_commonname }},
+      {{ g.organism_taxid }},
+      {{ g.summary }},
+
+      {% for ginfo in g.genomicinfo_set.all() %}
+        <div>
+          {{ ginfo.chrloc }},
+          {{ ginfo.chraccver }},
+          {{ ginfo.chrstart }},
+          {{ ginfo.chrstop }},
+          {{ ginfo.exoncount }}
+        </div>
+      {% endfor %}
+
+      {% for lochist in g.locationhist_set.all() %}
+        <div>
+          {{ lochist.annotationrelease }},
+          {{ lochist.assemblyaccver }},
+          {{ lochist.chraccver }},
+          {{ lochist.chrstart }},
+          {{ lochist.chrstop }},
+        </div>
+      {% endfor %}
+
+      {% for p in g.protein_set.all() %}
+        <h4>Protein {{ p.uid }}</h4>
+        <div>
+          {{ p.caption }},
+          {{ p.title }},
+          {{ p.extra }},
+          {{ p.gi }},
+          {{ p.createdate }},
+          {{ p.updatedate }},
+          {{ p.taxid }},
+          {{ p.slen }},
+          {{ p.projectid }},
+          {{ p.genome }},
+          {{ p.organism }},
+        </div>
+      {% endfor %}
+
+
+
+
+    </div>
+  {% endfor %}
+  </p>
+{% endblock %}
+

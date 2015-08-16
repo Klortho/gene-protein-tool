@@ -175,15 +175,17 @@ as specified by `SHELL_PLUS_PRE_IMPORTS` in settings.py.
         * ✓Make sure it's getting added
 * ✓More protein data
 * ✓GenomicInfos and LocationHists need to check when they already exist
-
+* ✓resultset, in view, not working; can't get the genes
+    * Look at the sql query
+    * Fixes; database references were screwed up somehow
+* ✓Modularize the templates, so that there's only one `base`, that provides the overall
+  styles and JS, and others just insert the content.
 
 * Work on display page 
 
 
 
-* Modularize the templates, so that there's only one `base`, that provides the overall
-  styles and JS, and others just insert the content.
-  
+
 * Edge cases:
     * queries that return no genes
     * genes that have no proteins (e.g. 106144534)
@@ -191,14 +193,19 @@ as specified by `SHELL_PLUS_PRE_IMPORTS` in settings.py.
       106144532)
 
 
+------------------------------
 * Before submitting this:
     * Search and destroy `FIXME`
     * In settings, change max_genes and max_proteins_per_gene back to defaults
     * Make sure this README is up-to-date with instructions on how to use it.
       Go through setting it up on a pristine server. Will it work on bfx?
 
-
-
+* Survey of the challenges
+    * Learning Django
+    * Integrating Jinja2 with Django - not well documented
+        * Examining the context from within the template
+        * Implementing introspection inside the template
+        * Getting template inheritance to work.
 
 
 
