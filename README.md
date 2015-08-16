@@ -44,6 +44,29 @@ To get out of the SQLite interpreter:
 .exit
 ```
 
+If you ever want to start over completely, discarding all old migratons,
+do the following:
+
+```
+rm db.sqlite3
+rm gpt/migrations/00*
+./manage.py makemigrations
+./manage.py migrate
+```
+
+Then, you'll also have to create a superuser for this application:
+
+```
+./manage.py createsuperuser
+```
+
+I created user `admin`, password `admin`.
+
+
+To start the application with a brand-new database:
+
+
+
 
 
 ### Request / data model interaction
@@ -141,6 +164,18 @@ as specified by `SHELL_PLUS_PRE_IMPORTS` in settings.py.
 
 
 ## To do
+
+* ✓Work on gathering more data, updating the models
+* ✓More gene data
+    * ✓More atomic data
+    * ✓new table GenomicInfo
+        * ✓Add to admin interface
+    * ✓locationhist: an array, so it needs a separate table
+        * ✓Add to admin interface
+        * ✓Make sure it's getting added
+* ✓More protein data
+* ✓GenomicInfos and LocationHists need to check when they already exist
+
 
 * Work on display page 
 

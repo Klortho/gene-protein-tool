@@ -20,7 +20,8 @@
     <h2>resultset</h2>
     {{ resultset.query }}
     {% for g in resultset.genes.all() %}
-      {{ g }}
+      Gene:
+      {{ g.uid }}
     {% endfor %}
   </body>
 </html>

@@ -3,10 +3,13 @@ from gpt.eutils import *
 import pprint
 import logging
 from project.settings import GPT
+import dateutil.parser
 
 logger = logging.getLogger(__name__)
 pp = pprint.PrettyPrinter(indent=4)
 
+
+# Gene model
 
 class Gene(models.Model):
     uid = models.IntegerField()
@@ -39,15 +42,32 @@ class LocationHist(models.Model):
     chrstart = models.IntegerField()
     chrstop = models.IntegerField()
 
+
+# Protein model
+
 class Protein(models.Model):
     gene = models.ForeignKey(Gene)
     uid = models.IntegerField()
     caption = models.CharField(max_length = 30)
     title = models.CharField(max_length = 80)
+    extra = models.CharField(max_length = 80)
+    gi = models.IntegerField(null = True)
+    createdate = models.DateField(null = True)
+    updatedate = models.DateField(null = True)
+    taxid = models.IntegerField(null = True)
+    slen = models.IntegerField(null = True)
+    projectid = models.CharField(max_length = 20)
+    genome = models.CharField(max_length = 20)
+    organism = models.CharField(max_length = 50)
+
+
     archive = models.BooleanField(default = False)
 
     def __str__(self):
         return "protein " + str(self.uid) + ": " + self.caption + " - '" + self.title + "'"
+
+
+# ResultSet model
 
 class ResultSet(models.Model):
     last_updated = models.DateTimeField(auto_now = True)
@@ -117,9 +137,9 @@ class ResultSet(models.Model):
             g.organism_taxid = org['taxid']
             g.summary = esummary_gene['summary']
 
-            # FIXME: for each genomic info, I need to see if it already exists in
-            # the database (esp. if this gene is being updated, rather than being
-            # created new)
+            # First remove all existing GenomicInfo records for this gene
+            GenomicInfo.objects.filter(gene = g).delete()
+            # Now create new ones and add them
             for eginfo in esummary_gene['genomicinfo']:
                 ginfo = GenomicInfo()
                 ginfo.my_gene = g
@@ -130,7 +150,8 @@ class ResultSet(models.Model):
                 ginfo.exoncount = eginfo['exoncount']
                 my_genomic_infos.append(ginfo)
 
-            # FIXME: same, for LocationHist
+            # Same, for LocationHist
+            LocationHist.objects.filter(gene = g).delete()
             for elochist in esummary_gene['locationhist']:
                 lochist = LocationHist()
                 lochist.my_gene = g
@@ -140,8 +161,6 @@ class ResultSet(models.Model):
                 lochist.chrstart = elochist['chrstart']
                 lochist.chrstop = elochist['chrstop']
                 my_location_hists.append(lochist)
-
-
 
             logger.debug(debug_msg + str(g))
             my_genes.append(g)
@@ -202,10 +221,21 @@ class ResultSet(models.Model):
                 debug_msg = "Creating new "
 
             # FIXME: deal with errors when expected keys are not found in the JSON
-            p.caption=esummary_protein['caption']
-            p.title=esummary_protein['title']
+            p.caption = esummary_protein['caption']
+            p.title = esummary_protein['title']
+            p.extra = esummary_protein['extra']
+            p.gi = esummary_protein['gi']
+            p.createdate = dateutil.parser.parse(esummary_protein['createdate'])
+            p.updatedate = dateutil.parser.parse(esummary_protein['updatedate'])
+            p.taxid = esummary_protein['taxid']
+            p.slen = esummary_protein['slen']
+            p.projectid = esummary_protein['projectid']
+            p.genome = esummary_protein['genome']
+            p.organism = esummary_protein['organism']
+
             logger.debug(debug_msg + str(p))
             proteins.append(p)
+
 
         # Save everything into the database, now that we've parsed all the 
         # E-utilities responses, and created all the
