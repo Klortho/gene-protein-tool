@@ -39,4 +39,16 @@ class ResultView(generic.DetailView):
     template_name = 'gpt/result.html'
 
 
+def save(request):
+    if (request.method != "POST"):
+        return HttpResponse("not post", status = 400, content_type="text/plain")
+
+    post = request.POST
+    if ('result_id' not in post):
+        return HttpResponse("no result_id", status = 400, content_type="text/plain")
+
+    ResultSet.archive(post['result_id'])
+
+    return HttpResponse("result_id = " + result_id, 
+        content_type="text/plain")
 

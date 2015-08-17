@@ -21,7 +21,7 @@ class Gene(models.Model):
     organism_commonname = models.CharField(max_length = 50)
     organism_taxid = models.IntegerField()
     summary = models.TextField()
-    archive = models.BooleanField(default = False)
+    archived = models.BooleanField(default = False)
 
     def __str__(self):
         return "gene " + str(self.uid) + ": '" + self.name + "'"
@@ -61,7 +61,7 @@ class Protein(models.Model):
     organism = models.CharField(max_length = 50)
 
 
-    archive = models.BooleanField(default = False)
+    archived = models.BooleanField(default = False)
 
     def __str__(self):
         return "protein " + str(self.uid) + ": " + self.caption + " - '" + self.title + "'"
@@ -73,7 +73,7 @@ class ResultSet(models.Model):
     last_updated = models.DateTimeField(auto_now = True)
     genes = models.ManyToManyField(Gene)
     query = models.CharField(max_length = 200)
-    archive = models.BooleanField(default = False)
+    archived = models.BooleanField(default = False)
 
     # Create a new ResultSet from an Entrez query string.
     # This does not save the ResultSet, or any of the resultant Gene or
@@ -81,7 +81,7 @@ class ResultSet(models.Model):
     @classmethod
     def create_from_query(cls, query):
         try:
-            rs = cls.objects.get(query=query, archive=False)
+            rs = cls.objects.get(query = query, archived = False)
             debug_msg = "Updating "
         except cls.DoesNotExist:
             rs = cls(query=query)
@@ -95,7 +95,7 @@ class ResultSet(models.Model):
         # -----------------------------------
 
         # `max_genes`, and the others, are typically enforced many times each
-        esearch_result = esearch(query, db='gene', retmax=max_genes)
+        esearch_result = esearch(query, db = 'gene', retmax = max_genes)
         # Attach the results to the instance, for debugging
         rs.esearch_result = esearch_result
 
@@ -108,7 +108,7 @@ class ResultSet(models.Model):
         # Do ESummary, db=gene, to get info about these genes; create Gene objects
         # ------------------------------------------------------------------------
 
-        esummary_genes = esummary(gids, db='gene')
+        esummary_genes = esummary(gids, db = 'gene')
         rs.esummary_genes = esummary_genes  # for debugging
         my_genes = rs.my_genes = []
         my_genomic_infos = []
@@ -120,7 +120,7 @@ class ResultSet(models.Model):
             esummary_gene = esummary_genes[str(gid)]
 
             try:
-                g = Gene.objects.get(uid=gid, archive=False)
+                g = Gene.objects.get(uid = gid, archived = False)
                 debug_msg = "Updating "
             except Gene.DoesNotExist:
                 g = Gene(uid=gid)
@@ -207,14 +207,14 @@ class ResultSet(models.Model):
         # -------------------------------------------------------------------------
 
         print('>>>>>>>>>> pids: ' + ",".join(map(str, pids)))
-        esummary_proteins = esummary(pids, db='protein')
+        esummary_proteins = esummary(pids, db = 'protein')
         rs.esummary_proteins = esummary_proteins   # for debugging
         proteins = rs.proteins = []
         for pid in pids:
             # FIXME: deal with error, when gid isn't found in JSON results
             esummary_protein = esummary_proteins[str(pid)]
             try:
-                p = Protein.objects.get(uid=pid, archive=False)
+                p = Protein.objects.get(uid = pid, archived = False)
                 debug_msg = "Updating "
             except Protein.DoesNotExist:
                 p = Protein(uid=pid)
@@ -264,4 +264,13 @@ class ResultSet(models.Model):
         #return HttpResponseRedirect(reverse('gpt:result', args=(rs_id,)))
 
         return rs
+
+    @classmethod
+    def archive_it(cls, rsid):
+        rs = cls.objects.get(pk = rsid)
+        rs.archived = True
+        rs.save()
+        return rs
+
+
 

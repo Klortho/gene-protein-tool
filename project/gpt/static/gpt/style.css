@@ -1,4 +1,9 @@
 body {
-    font: small 'Lucida Grande', Verdana, Arial, sans-serif;
+  font: small 'Lucida Grande', Verdana, Arial, sans-serif;
+  margin: 1em 10em;
+}
+
+#save_button {
+  float: right;
 }
 

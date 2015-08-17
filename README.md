@@ -181,6 +181,16 @@ as specified by `SHELL_PLUS_PRE_IMPORTS` in settings.py.
 * ✓Modularize the templates, so that there's only one `base`, that provides the overall
   styles and JS, and others just insert the content.
 
+* Save button
+    * Use Ajax
+    * Implement the save.
+    * Disabled styling on the save button, when the resultset has been saved.
+
+
+
+
+
+
 * Work on display page 
 
 

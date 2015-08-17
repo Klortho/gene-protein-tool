@@ -2,26 +2,20 @@
 
 {% block title %}Results{% endblock %}
 
+{% block meta %}
+  <meta name='resultset_archive' content='{{ resultset.archived }}' />
+  <meta name='resultset_id' content='{{ resultset.id }}' />
+{% endblock %}
+
 {% block content %}
   <h1>Results set</h1>
-
-<!--
-  <h2>context</h2>
-  <table>
-    {% for key, value in context().items() %}
-      <tr>
-        <td>{{key}}</td>
-        <td>{{value}}</td>
-      </tr>
-    {% endfor %}
-  </table>
--->
-
-<!--
-  <pre>{{ pp(getmembers(resultset)) }}</pre>
-  <p>resultset.genes.all(): {{resultset.genes.all()}}</p>
--->
-  <p>Query: {{ resultset.query }}</p>
+  <div>
+    <input id='save_button' type='button' value='Save' 
+      {% if resultset.archived %}disabled='disabled'{% endif %} />
+    <p>
+      query: {{ resultset.query }}<br/>
+    </p>
+  </div>
   <p>
   {% for g in resultset.genes.all() %}
     <div>
@@ -71,10 +65,6 @@
           {{ p.organism }},
         </div>
       {% endfor %}
-
-
-
-
     </div>
   {% endfor %}
   </p>
