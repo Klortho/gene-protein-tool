@@ -1,7 +1,13 @@
 $(document).ready(function() {
   var csrftoken = $.cookie('csrftoken');
   var rsid = $("meta[name=resultset_id]").attr('content');
-  var archive = $("meta[name=resultset_archive]").attr('content') == 'True';
+  var archived = $("meta[name=resultset_archived]").attr('content') == 'True';
+
+  function saved() {
+    $('#save_button').val("Saved")
+                     .prop("disabled", true);
+  }
+  if (archived) saved();
 
 
   $('#save_button').on('click', function(e) {
@@ -9,15 +15,15 @@ $(document).ready(function() {
       '/save/', 
       {
         'csrfmiddlewaretoken': csrftoken,
-        'result_id': rsid
+        'resultset_id': rsid
       }, 
       function(r) {
-        alert(r);
+        saved();
       }
     )
       .fail(function(err) {
-        // FIXME: need a popper here explaining that the save operation failed
-        alert(err);
+        alert("Sorry! The save operation failed:\n\n" + 
+              err.statusText + "\n" + err.responseText);
       });
   });
 });

@@ -17,21 +17,20 @@ def search(request):
     # the database.  Result set will go into rs.
     rs = ResultSet.create_from_query(request.POST['term'])
 
-    # FIXME - for now, we're not redirecting
     # Redirect to the page that will show the result.
-    #return HttpResponseRedirect(reverse('gpt:result', args=(25,)))
+    return HttpResponseRedirect(reverse('gpt:result', args=(rs.id,)))
 
-    return HttpResponse(
-        "esearch_result\n==============\n" +
-        pprint.pformat(rs.esearch_result) + "\n\n" +
-        "esummary_genes\n==============\n" +
-        pprint.pformat(rs.esummary_genes) + "\n\n" +
-        "elink_result\n============\n" +
-        pprint.pformat(rs.elink_result) + "\n\n" +
-        "esummary_proteins\n=================\n" +
-        pprint.pformat(rs.esummary_proteins) + "\n\n",
-        content_type="text/plain"
-    );
+    #return HttpResponse(
+    #    "esearch_result\n==============\n" +
+    #    pprint.pformat(rs.esearch_result) + "\n\n" +
+    #    "esummary_genes\n==============\n" +
+    #    pprint.pformat(rs.esummary_genes) + "\n\n" +
+    #    "elink_result\n============\n" +
+    #    pprint.pformat(rs.elink_result) + "\n\n" +
+    #    "esummary_proteins\n=================\n" +
+    #    pprint.pformat(rs.esummary_proteins) + "\n\n",
+    #    content_type="text/plain"
+    #);
 
 
 class ResultView(generic.DetailView):
@@ -41,14 +40,27 @@ class ResultView(generic.DetailView):
 
 def save(request):
     if (request.method != "POST"):
-        return HttpResponse("not post", status = 400, content_type="text/plain")
+        return HttpResponse("HTTP method other than post", 
+                            status=400, 
+                            content_type="text/plain")
 
     post = request.POST
-    if ('result_id' not in post):
-        return HttpResponse("no result_id", status = 400, content_type="text/plain")
+    if ('resultset_id' not in post):
+        return HttpResponse("No resultset_id", 
+                            status = 400, 
+                            content_type="text/plain")
 
-    ResultSet.archive(post['result_id'])
+    resultset_id = post['resultset_id']
+    #print('resultset_id is ' + resultset_id)
 
-    return HttpResponse("result_id = " + result_id, 
-        content_type="text/plain")
+    try:
+        ResultSet.archive_it(resultset_id)
+    except:
+        return HttpResponse("Error saving to the database",
+                            status=500,
+                            content_type="text/plain")
+
+    # Success
+    return HttpResponse("resultset_id = " + resultset_id, 
+                        content_type="text/plain")
 

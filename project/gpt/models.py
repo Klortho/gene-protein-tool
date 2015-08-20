@@ -28,19 +28,19 @@ class Gene(models.Model):
 
 class GenomicInfo(models.Model):
     gene = models.ForeignKey(Gene)
-    chrloc = models.CharField(max_length = 20)
-    chraccver = models.CharField(max_length = 20)
-    chrstart = models.IntegerField()
-    chrstop = models.IntegerField()
-    exoncount = models.IntegerField()
+    chrloc = models.CharField(max_length=20)
+    chraccver = models.CharField(max_length=20)
+    chrstart = models.IntegerField(null=True)
+    chrstop = models.IntegerField(null=True)
+    exoncount = models.IntegerField(null=True)
 
 class LocationHist(models.Model):
     gene = models.ForeignKey(Gene)
-    annotationrelease = models.CharField(max_length = 20)
-    assemblyaccver = models.CharField(max_length = 30)
-    chraccver = models.CharField(max_length = 20)
-    chrstart = models.IntegerField()
-    chrstop = models.IntegerField()
+    annotationrelease = models.CharField(max_length=20)
+    assemblyaccver = models.CharField(max_length=30)
+    chraccver = models.CharField(max_length=20)
+    chrstart = models.IntegerField(null=True)
+    chrstop = models.IntegerField(null=True)
 
 
 # Protein model
@@ -66,6 +66,10 @@ class Protein(models.Model):
     def __str__(self):
         return "protein " + str(self.uid) + ": " + self.caption + " - '" + self.title + "'"
 
+# This convenience function gets a string value for a key in a json object,
+# if that key exists. If not, it returns the empty string
+def _get_string(json, k):
+    return json[k] if k in json else ""
 
 # ResultSet model
 
@@ -86,6 +90,13 @@ class ResultSet(models.Model):
         except cls.DoesNotExist:
             rs = cls(query=query)
             debug_msg = "Creating new "
+
+        # Lists for storing the child model objects we create. If all goes well
+        # then all of these get saved to the DB at the end
+        my_genes = []
+        my_genomic_infos = []
+        my_location_hists = []
+        proteins = []
 
         #rs = cls(query = query)
         max_genes = GPT['max_genes']
@@ -108,16 +119,13 @@ class ResultSet(models.Model):
         # Do ESummary, db=gene, to get info about these genes; create Gene objects
         # ------------------------------------------------------------------------
 
-        esummary_genes = esummary(gids, db = 'gene')
-        rs.esummary_genes = esummary_genes  # for debugging
-        my_genes = rs.my_genes = []
-        my_genomic_infos = []
-        my_location_hists = []
-        gid_to_gene = {}   # cross reference a gene's UID to the Gene object
+        if len(gids) > 0:
+            esummary_genes = esummary(gids, db = 'gene')
+            gid_to_gene = {}   # cross reference a gene's UID to the Gene object
 
         for gid in gids:
             # FIXME: deal with error, when gid isn't found in JSON results
-            esummary_gene = esummary_genes[str(gid)]
+            eg = esummary_genes[str(gid)]
 
             try:
                 g = Gene.objects.get(uid = gid, archived = False)
@@ -126,40 +134,46 @@ class ResultSet(models.Model):
                 g = Gene(uid=gid)
                 debug_msg = "Creating new "
 
-            # FIXME: deal with errors when expected keys are not found in the JSON
-            g.name = esummary_gene['name']
-            g.description = esummary_gene['description']
-            g.chromosome = esummary_gene['chromosome']
-            g.geneticsource = esummary_gene['geneticsource']
-            org = esummary_gene['organism']
-            g.organism_name = org['scientificname']
-            g.organism_commonname = org['commonname']
-            g.organism_taxid = org['taxid']
-            g.summary = esummary_gene['summary']
+            g.name = _get_string(eg, 'name')
+            g.description = _get_string(eg, 'description')
+            g.chromosome = _get_string(eg, 'chromosome')
+            g.geneticsource = _get_string(eg, 'geneticsource')
+            if 'organism' in eg:
+                org = eg['organism']
+                g.organism_name = _get_string(org, 'scientificname')
+                g.organism_commonname = _get_string(org, 'commonname')
+                g.organism_taxid = _get_string(org, 'taxid')
+                g.summary = _get_string(eg, 'summary')
 
             # First remove all existing GenomicInfo records for this gene
             GenomicInfo.objects.filter(gene = g).delete()
+
             # Now create new ones and add them
-            for eginfo in esummary_gene['genomicinfo']:
+            for eginfo in eg['genomicinfo']:
                 ginfo = GenomicInfo()
                 ginfo.my_gene = g
-                ginfo.chrloc = eginfo['chrloc']
-                ginfo.chraccver = eginfo['chraccver']
-                ginfo.chrstart = eginfo['chrstart']
-                ginfo.chrstop = eginfo['chrstop']
-                ginfo.exoncount = eginfo['exoncount']
+                ginfo.chrloc = _get_string(eginfo, 'chrloc')
+                ginfo.chraccver = _get_string(eginfo, 'chraccver')
+                if 'chrstart' in eginfo:
+                    ginfo.chrstart = eginfo['chrstart']
+                if 'chrstop' in eginfo:
+                    ginfo.chrstop = eginfo['chrstop']
+                if 'exoncount' in eginfo:
+                    ginfo.exoncount = eginfo['exoncount']
                 my_genomic_infos.append(ginfo)
 
             # Same, for LocationHist
             LocationHist.objects.filter(gene = g).delete()
-            for elochist in esummary_gene['locationhist']:
+            for elochist in eg['locationhist']:
                 lochist = LocationHist()
                 lochist.my_gene = g
-                lochist.annotationrelease = elochist['annotationrelease']
-                lochist.assemblyaccver = elochist['assemblyaccver']
-                lochist.chraccver = elochist['chraccver']
-                lochist.chrstart = elochist['chrstart']
-                lochist.chrstop = elochist['chrstop']
+                lochist.annotationrelease = _get_string(elochist, 'annotationrelease')
+                lochist.assemblyaccver = _get_string(elochist, 'assemblyaccver')
+                lochist.chraccver = _get_string(elochist, 'chraccver')
+                if 'chrstart' in elochist:
+                    lochist.chrstart = elochist['chrstart']
+                if 'chrstop' in elochist:
+                    lochist.chrstop = elochist['chrstop']
                 my_location_hists.append(lochist)
 
             logger.debug(debug_msg + str(g))
@@ -169,72 +183,76 @@ class ResultSet(models.Model):
         # Do ELink to get all the proteins associated with each of these genes
         # --------------------------------------------------------------------
 
-        elink_result = elink(gids, 
-                             dbfrom='gene', 
-                             db='protein', 
-                             linkname='gene_protein')
-        rs.elink_result = elink_result    # for debugging
+        if len(gids) > 0:
+            elink_result = elink(gids, 
+                                 dbfrom='gene', 
+                                 db='protein', 
+                                 linkname='gene_protein')
 
-        # The elink results come back grouped by gene. Iterate over each gene, and
-        # aggregate all the protein ids into one list. Also create a dictionary
-        # to cross-reference pid to the Gene object
-        pids = []
-        pid_to_gene = {}
-        gene_num = 0
-        for linkset_gene in elink_result:
-            print("linkset_gene: ")
-            pp.pprint(linkset_gene)
+            # The elink results come back grouped by gene. Iterate over each gene, and
+            # aggregate all the protein ids into one list. Also create a dictionary
+            # to cross-reference pid to the Gene object
+            pids = []
+            pid_to_gene = {}
+            gene_num = 0
+            for linkset_gene in elink_result:
+                print("linkset_gene: ")
+                pp.pprint(linkset_gene)
 
-            # Enforce max_genes here, too. This shouldn't be necessary, but doesn't hurt:
-            if (gene_num >= max_genes): break
+                # Enforce max_genes here, too. This shouldn't be necessary, but doesn't hurt:
+                if (gene_num >= max_genes): break
 
-            # Get the gene id from the result, and look up the Gene object
-            gid = linkset_gene['ids'][0]
-            gene = gid_to_gene[gid]
+                # Get the gene id from the result, and look up the Gene object
+                gid = linkset_gene['ids'][0]
+                gene = gid_to_gene[gid]
 
-            # Get protein ids as integers. Limit the number of proteins per gene
-            if 'linksetdbs' in linkset_gene:
-                gene_pids = list(map(int,
-                    linkset_gene['linksetdbs'][0]['links'][0:max_proteins_per_gene]
-                ))
-                for pid in gene_pids:
-                    pid_to_gene[pid] = gene
-                pids.extend(gene_pids)
+                # Get protein ids as integers. Limit the number of proteins per gene
+                if 'linksetdbs' in linkset_gene:
+                    gene_pids = list(map(int,
+                        linkset_gene['linksetdbs'][0]['links'][0:max_proteins_per_gene]
+                    ))
+                    for pid in gene_pids:
+                        pid_to_gene[pid] = gene
+                    pids.extend(gene_pids)
 
-            gene_num = gene_num + 1
+                gene_num = gene_num + 1
 
-        # Do ESummary, db=protein, to get info about these proteins; create objects
-        # -------------------------------------------------------------------------
+            # Do ESummary, db=protein, to get info about these proteins; create objects
+            # -------------------------------------------------------------------------
 
-        print('>>>>>>>>>> pids: ' + ",".join(map(str, pids)))
-        esummary_proteins = esummary(pids, db = 'protein')
-        rs.esummary_proteins = esummary_proteins   # for debugging
-        proteins = rs.proteins = []
-        for pid in pids:
-            # FIXME: deal with error, when gid isn't found in JSON results
-            esummary_protein = esummary_proteins[str(pid)]
-            try:
-                p = Protein.objects.get(uid = pid, archived = False)
-                debug_msg = "Updating "
-            except Protein.DoesNotExist:
-                p = Protein(uid=pid)
-                debug_msg = "Creating new "
+            if len(pids) > 0:
+                esummary_proteins = esummary(pids, db = 'protein')
 
-            # FIXME: deal with errors when expected keys are not found in the JSON
-            p.caption = esummary_protein['caption']
-            p.title = esummary_protein['title']
-            p.extra = esummary_protein['extra']
-            p.gi = esummary_protein['gi']
-            p.createdate = dateutil.parser.parse(esummary_protein['createdate'])
-            p.updatedate = dateutil.parser.parse(esummary_protein['updatedate'])
-            p.taxid = esummary_protein['taxid']
-            p.slen = esummary_protein['slen']
-            p.projectid = esummary_protein['projectid']
-            p.genome = esummary_protein['genome']
-            p.organism = esummary_protein['organism']
+            for pid in pids:
+                # FIXME: deal with error, when gid isn't found in JSON results
+                ep = esummary_proteins[str(pid)]
+                try:
+                    p = Protein.objects.get(uid = pid, archived = False)
+                    debug_msg = "Updating "
+                except Protein.DoesNotExist:
+                    p = Protein(uid=pid)
+                    debug_msg = "Creating new "
 
-            logger.debug(debug_msg + str(p))
-            proteins.append(p)
+
+                p.caption = _get_string(ep, 'caption')
+                p.title = _get_string(ep, 'title')
+                p.extra = _get_string(ep, 'extra')
+                if ('gi' in ep): 
+                    p.gi = ep['gi']
+                if ('createdate' in ep):
+                    p.createdate = dateutil.parser.parse(ep['createdate'])
+                if ('updatedate' in ep):
+                    p.updatedate = dateutil.parser.parse(ep['updatedate'])
+                if ('taxid' in ep):
+                    p.taxid = ep['taxid']
+                if ('slen' in ep):
+                    p.slen = ep['slen']
+                p.projectid = _get_string(ep, 'projectid')
+                p.genome = _get_string(ep, 'genome')
+                p.organism = _get_string(ep, 'organism')
+
+                logger.debug(debug_msg + str(p))
+                proteins.append(p)
 
 
         # Save everything into the database, now that we've parsed all the 
@@ -256,12 +274,6 @@ class ResultSet(models.Model):
         for p in proteins:
             p.gene = pid_to_gene[p.uid]
             p.save()
-
-
-
-        # FIXME - for now, we're not redirecting
-        # Redirect to the page that will show the result.
-        #return HttpResponseRedirect(reverse('gpt:result', args=(rs_id,)))
 
         return rs
 

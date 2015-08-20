@@ -126,7 +126,7 @@ LOGGING = {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
             'filename': os.getenv('GPT_LOG_FILE', 
-                os.path.join(BASE_DIR, 'gpt.log')),
+                                  os.path.join(BASE_DIR, 'gpt.log')),
         },
         'console': {
             'level': 'DEBUG',

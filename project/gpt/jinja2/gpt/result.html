@@ -2,20 +2,23 @@
 
 {% block title %}Results{% endblock %}
 
+{# Pass some data to the JavaScript #}
 {% block meta %}
-  <meta name='resultset_archive' content='{{ resultset.archived }}' />
+  <meta name='resultset_archived' content='{{ resultset.archived }}' />
   <meta name='resultset_id' content='{{ resultset.id }}' />
 {% endblock %}
 
 {% block content %}
   <h1>Results set</h1>
   <div>
-    <input id='save_button' type='button' value='Save' 
-      {% if resultset.archived %}disabled='disabled'{% endif %} />
+    <input id='save_button' type='button' value='Save result set'/>
     <p>
-      query: {{ resultset.query }}<br/>
+      Query: <span id='query'>{{ resultset.query }}</span>
     </p>
   </div>
+  {% if resultset.genes.all()|length == 0 %}
+    No genes found!
+  {% endif %}
   <p>
   {% for g in resultset.genes.all() %}
     <div>

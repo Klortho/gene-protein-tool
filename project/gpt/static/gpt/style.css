@@ -7,3 +7,7 @@ body {
   float: right;
 }
 
+#query {
+  padding: 0.2em 0.5em;
+  border: 1px solid #DDD;
+}

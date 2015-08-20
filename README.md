@@ -19,6 +19,15 @@ cd project
 ```
 
 
+## Walk-through
+
+This section describes a step-by-step walkthrough of the app, to see its features.
+This can also be used as a manual test procedure.
+
+* Bring up the app at http://localhost:8000
+* Enter "human" in the search box
+* Verify that you get a set of results corresponding to some genes, and their
+  associated proteins
 
 ## Models / database schema
 
@@ -108,6 +117,23 @@ Specific behavior:
 ## Views
 
 
+### save
+
+This view responds to Ajax POST requests that result from the user clicking the
+"Save" button on the result set page. That POST request includes just one 
+request parameter, `resultset_id`, which is the primary key of the result set
+in the datbase.
+
+Testing this by examining the Ajax request in the Chrome developer toolbar.
+
+When there is any problem, this view returns with an HTTP error status, which
+then gets displayed by the JavaScript in an alert box.
+
+When successful, this view returns status 200, and the JavaScript changes the
+button label to "Saved", and disables it.
+
+
+
 
 ## Logging
 
@@ -115,6 +141,8 @@ By default, the app writes a log messages both to the console, and to a
 log file to the project base directory, named gpt.log.
 If you set the GTP_LOG_FILE environment variable, you can put that anywhere you want.
 
+The logging is configured in the `LOGGING` section of settings.py. By default,
+the log level both for the console and the log file is `DEBUG`.
 
 ## Testing
 
@@ -160,62 +188,19 @@ cd project
 This uses `shell_plus`, which preloads the models, plus some eutils routines,
 as specified by `SHELL_PLUS_PRE_IMPORTS` in settings.py.
 
+### Inspecting the database
 
+Connect to the SQLite database with, for example:
 
-
-## To do
-
-* ✓Work on gathering more data, updating the models
-* ✓More gene data
-    * ✓More atomic data
-    * ✓new table GenomicInfo
-        * ✓Add to admin interface
-    * ✓locationhist: an array, so it needs a separate table
-        * ✓Add to admin interface
-        * ✓Make sure it's getting added
-* ✓More protein data
-* ✓GenomicInfos and LocationHists need to check when they already exist
-* ✓resultset, in view, not working; can't get the genes
-    * Look at the sql query
-    * Fixes; database references were screwed up somehow
-* ✓Modularize the templates, so that there's only one `base`, that provides the overall
-  styles and JS, and others just insert the content.
-
-* Save button
-    * Use Ajax
-    * Implement the save.
-    * Disabled styling on the save button, when the resultset has been saved.
-
-
-
-
-
-
-* Work on display page 
-
-
-
-
-* Edge cases:
-    * queries that return no genes
-    * genes that have no proteins (e.g. 106144534)
-    * queries that have a set of genes that have no proteins (e.g. 106144534,
-      106144532)
-
-
-------------------------------
-* Before submitting this:
-    * Search and destroy `FIXME`
-    * In settings, change max_genes and max_proteins_per_gene back to defaults
-    * Make sure this README is up-to-date with instructions on how to use it.
-      Go through setting it up on a pristine server. Will it work on bfx?
-
-* Survey of the challenges
-    * Learning Django
-    * Integrating Jinja2 with Django - not well documented
-        * Examining the context from within the template
-        * Implementing introspection inside the template
-        * Getting template inheritance to work.
-
-
+```
+$ cd project
+$ sqlite3 db.sqlite3 
+sqlite> .tables
+auth_group                  django_migrations         
+...                         ...
+sqlite> select * from gpt_resultset;
+5|2015-08-17 02:18:53.453206|human|1
+...
+.quit
+```
 
