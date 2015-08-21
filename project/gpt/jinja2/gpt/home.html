@@ -3,14 +3,30 @@
 {% block title %}Index{% endblock %}
 
 {% block content %}
-  <h1>Gene / protein search tool</h1>
   <p>Enter search terms in the NCBI Entrez format. These will be used to
-    search the NCBI gene database.</p>
-  <form name="gene_search" id="gene_search" action="{{url('gpt:search')}}" method='post'>
-    <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
-    <input name="term" id="term" type="search" value="" 
-      autofocus="autofocus" placeholder="Enter a search term"
-      size='50'/>
-    <input name="submit" type="submit" id="submit" value="submit">
-  </form>
+    search the NCBI gene database, and to find related proteins.</p>
+  {{ forms.search(csrf_token, '') }}
+
+  <h2 class='page_title'>Search history</h2>
+  <table class='resultset_list'>
+    <thead>
+      <tr>
+        <th>Saved?</th>
+        <th>Last updated</th>
+        <th>Query</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for rs in result_sets %}
+        <tr>
+          <td class='saved'>{{ "✓" if rs.archived else "" }}</td>
+          <td>{{ rs.last_updated.strftime('%Y-%m-%d %H:%M') }}</td>
+          <td>
+            <a href="{{ url('gpt:result', args=(rs.id,)) }}">{{ rs.query }}</a>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
 {% endblock %}

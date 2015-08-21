@@ -10,7 +10,9 @@ from .models import *
 logger = logging.getLogger(__name__)
 
 def home(request):
-    return render(request, 'gpt/home.html', using = 'jinja2')
+    result_sets = ResultSet.objects.all()
+    context = {'result_sets': result_sets}
+    return render(request, 'gpt/home.html', context, using = 'jinja2')
 
 def search(request):
     # Get Genes and Proteins, create a results set, and store it to

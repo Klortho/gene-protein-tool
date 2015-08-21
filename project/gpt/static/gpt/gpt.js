@@ -26,4 +26,21 @@ $(document).ready(function() {
               err.statusText + "\n" + err.responseText);
       });
   });
+
+
+  $('.collapse-button')
+    .data('collapsed', true)
+    .on('click', function(e) {
+      var collapsed = $(this).data('collapsed');
+      var tbody = $(this).closest('table').find('tbody');
+      if (collapsed) {
+        tbody.show(200);
+      }
+      else {
+        tbody.hide(200);
+      }
+      $(this).text(collapsed ? '-' : '+')
+             .data('collapsed', !collapsed);
+      return false;
+    });
 });

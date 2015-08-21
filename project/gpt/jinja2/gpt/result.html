@@ -9,30 +9,39 @@
 {% endblock %}
 
 {% block content %}
-  <h1>Results set</h1>
   <div>
     <input id='save_button' type='button' value='Save result set'/>
-    <p>
-      Query: <span id='query'>{{ resultset.query }}</span>
-    </p>
+    {{ forms.search(csrf_token, resultset.query) }}
   </div>
   {% if resultset.genes.all()|length == 0 %}
-    No genes found!
+    Results: no genes found!
   {% endif %}
-  <p>
+
+  <h4>Genes in this result set</h4>
+  <ul>
+    {% for g in resultset.genes.all() %}
+      <li><a href='#gene-{{ g.uid }}'>Gene
+        {{ g.name }} - {{ g.description }}</a></li>
+    {% endfor %}
+  </ul>
+
   {% for g in resultset.genes.all() %}
-    <div>
-      <h3><a href='http://www.ncbi.nlm.nih.gov/gene/{{ g.uid }}/'>Gene
-          {{ g.name }} - {{ g.description }}</a></h3>
+    <div class='gene' id='gene-{{ g.uid }}'>
+      <h2 class='hvr-glow'>
+        <a href='http://www.ncbi.nlm.nih.gov/gene/{{ g.uid }}/'>Gene
+          {{ g.name }} - {{ g.description }}</a></h2>
+      <div class='gene_body'>
         <table class='item_summary'>
           <tr>
             <th>Gene ID</th>
             <td>{{ g.uid }}</td>
           </tr>
-          <tr>
-            <th>Chromosome</th>
-            <td>{{ g.chromosome }}</td>
-          </tr>
+          {% if g.chromosome|length > 0 %}
+            <tr>
+              <th>Chromosome</th>
+              <td>{{ g.chromosome }}</td>
+            </tr>
+          {% endif %}
           <tr>
             <th>Genetic source</th>
             <td>{{ g.geneticsource }}</td>
@@ -44,70 +53,99 @@
                 {{ g.organism_name }} ({{ g.organism_commonname }})</a> - ID 
                 {{ g.organism_taxid }}</td>
           </tr>
-          <tr>
-            <th>Summary</th>
-            <td>{{ g.summary }}</td>
-          </tr>
-          <tr>
-            <th>Genomic info</th>
-            <td>
-              {% for ginfo in g.genomicinfo_set.all() %}
-                <a href='http://www.ncbi.nlm.nih.gov/nuccore/{{ ginfo.chraccver }}/'>
-                  {{ ginfo.chraccver }}</a> - 
-                  chromosome {{ ginfo.chrloc }}, 
-                  {{ ginfo.chrstart }}:{{ ginfo.chrstop }}; 
-                  exons: {{ ginfo.exoncount }}<br/>
-              {% endfor %}
-            </td>
-          </tr>
-          <tr>
-            <th>Location history</th>
-            <td>
-              <table class='lochist'>
-                <thead>
-                  <tr>
-                    <th>Annotation release</th>
-                    <th>Assembly</th>
-                    <th>Chromosome</th>
-                    <th>Location</th>
-                    <th><a href='' class='collapse-button'>+</a></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {% for lochist in g.locationhist_set.all() %}
+          {% if g.summary|length > 0 %}
+            <tr>
+              <th>Summary</th>
+              <td>{{ g.summary }}</td>
+            </tr>
+          {% endif %}
+          {% if g.genomicinfo_set.all()|length > 0 %}
+            <tr>
+              <th>Genomic info</th>
+              <td>
+                {% for ginfo in g.genomicinfo_set.all() %}
+                  <a href='http://www.ncbi.nlm.nih.gov/nuccore/{{ ginfo.chraccver }}/'>
+                    {{ ginfo.chraccver }}</a> - 
+                    chromosome {{ ginfo.chrloc }}, 
+                    {{ ginfo.chrstart }}:{{ ginfo.chrstop }}; 
+                    exons: {{ ginfo.exoncount }}<br/>
+                {% endfor %}
+              </td>
+            </tr>
+          {% endif %}
+          {% if g.locationhist_set.all()|length > 0 %}
+            <tr>
+              <th>Location info</th>
+              <td>
+                <table class='lochist'>
+                  <thead>
                     <tr>
-                      <td>{{ lochist.annotationrelease }}</td>
-                      <td>{{ lochist.assemblyaccver }}</td>
-                      <td>{{ lochist.chraccver }}</td>
-                      <td>{{ lochist.chrstart }}:{{ lochist.chrstop }}</td>
+                      <th>Annotation release</th>
+                      <th>Assembly</th>
+                      <th>Chromosome</th>
+                      <th>Location</th>
+                      <th><a href='' class='collapse-button'>+</a></th>
                     </tr>
-                  {% endfor %}
-                </tbody>
-              </table>
-            </td>
-          </tr>
-        </table>
-
+                  </thead>
+                  <tbody style='display: none;'>
+                    {% for lochist in g.locationhist_set.all() %}
+                      <tr>
+                        <td>{{ lochist.annotationrelease }}</td>
+                        <td><a href='http://www.ncbi.nlm.nih.gov/assembly/{{ 
+                          lochist.assemblyaccver }}/'>{{ lochist.assemblyaccver }}</a></td>
+                        <td><a href='http://www.ncbi.nlm.nih.gov/nuccore/{{ 
+                          lochist.chraccver }}/'>{{ lochist.chraccver }}</a></td>
+                        <td>{{ lochist.chrstart }}:{{ lochist.chrstop }}</td>
+                      </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+          {% endif %}
+        </table>    
         
-        
-      {% for p in g.protein_set.all() %}
-        <h4>Protein {{ p.uid }}</h4>
-        <div>
-          {{ p.caption }},
-          {{ p.title }},
-          {{ p.extra }},
-          {{ p.gi }},
-          {{ p.createdate }},
-          {{ p.updatedate }},
-          {{ p.taxid }},
-          {{ p.slen }},
-          {{ p.projectid }},
-          {{ p.genome }},
-          {{ p.organism }},
-        </div>
-      {% endfor %}
+        {% for p in g.protein_set.all() %}
+          <h3 class='hvr-glow'>
+            <a href='http://www.ncbi.nlm.nih.gov/protein/{{ p.uid }}/'>Protein -
+            {{ p.title }}</a></h3>
+          <table class='item_summary'>
+            <tr>
+              <th>IDs</th>
+              <td>{{ p.uid }}; GI {{ p.gi }}</td>
+            </tr>
+            <tr>
+              <th>FASTA header</th>
+              <td>{{ p.extra }}</td>
+            </tr>
+            <tr>
+              <th>Dates</th>
+              <td>
+                created {{ p.createdate }}<br/>
+                updated {{ p.updatedate }}
+              </td>
+            </tr>
+            <tr>
+              <th>Organism/genome</th>
+              <td><a href='http://www.ncbi.nlm.nih.gov/taxonomy/{{ p.taxid }}/'>{{ 
+                p.organism }}</a>, {{ p.genome }}
+              </td>
+            </tr>
+            <tr>
+              <th>Length</th>
+              <td>{{ p.slen }}</td>
+            </tr>
+            {% if p.projectid != "0" %}
+              <tr>
+                <th>Bioproject</th>
+                <td><a href='http://www.ncbi.nlm.nih.gov/bioproject/{{ p.projectid }}/'>
+                  {{ p.projectid }}</td>
+              </tr>
+            {% endif %}
+          </table>
+        {% endfor %}
+      </div>
     </div>
   {% endfor %}
-  </p>
 {% endblock %}
 

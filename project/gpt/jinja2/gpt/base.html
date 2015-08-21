@@ -1,15 +1,18 @@
+{% import 'gpt/forms.html' as forms %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
     <title>{% block title %}{% endblock %} - Gene / protein search tool</title>
-    <link rel="stylesheet" type="text/css" href="{{static('gpt/style.css')}}" />
+    <link rel="stylesheet" type="text/css" href="{{static('gpt/gpt.css')}}" />
+    <link rel="stylesheet" type="text/css" href="{{static('gpt/hover.css')}}" />
     <script type="text/javascript" src="{{static('gpt/jquery.min.js')}}"></script>
     <script type='text/javascript' src="{{static('gpt/jquery.cookie.min.js')}}"></script>
     <script type="text/javascript" src="{{static('gpt/gpt.js')}}"></script>
     {% block meta %}{% endblock %}
   </head>
   <body>
+    <h1><a href="{{url('gpt:home')}}">Gene/protein search tool</a></h1>
     <div id='content'>
       {% block content %}{% endblock %}
     </div>

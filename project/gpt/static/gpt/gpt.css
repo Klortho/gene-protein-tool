@@ -1,0 +1,83 @@
+body {
+  font: small 'Lucida Grande', Verdana, Arial, sans-serif;
+  margin: 1em 10em;
+}
+
+#save_button {
+  float: right;
+}
+
+#query {
+  padding: 0.2em 0.5em;
+  border: 1px solid #DDD;
+}
+
+h2.page_title {
+  background-color: white;
+  font-style: italic;
+  margin-top: 1em;
+}
+h2 {
+  margin-top: 0;
+  background-color: #DDD;
+  padding: 0.3em;
+}
+
+h3 {
+  background-color: #DDD;
+  padding: 0.2em;
+}
+
+
+
+a {
+  text-decoration: none;
+  color: #55E;
+  transition: color 0.3s;
+}
+a:hover {
+  color: #77E;
+  text-shadow: 0px 0px 1px rgba(80, 80, 80, 1);
+}
+
+.gene {
+  border: 3px solid #DAA;
+  border-radius: 5px;
+  padding: 0.5em;
+  margin-top: 2em;
+}
+
+.gene_body {
+  margin-left: 2em;
+}
+.item_summary th {
+  white-space: nowrap;
+  text-align: right;
+  padding-right: 1.2em;
+  vertical-align: top;
+}
+
+
+.resultset_list td {
+  padding-right: 0.5em;
+  padding-left: 0.5em;
+}
+td.saved {
+  text-align: center;
+}
+
+.lochist th {
+  text-align: center;
+  padding: 0 0.5em;
+}
+
+.lochist td {
+  padding: 0 0.5em;
+}
+
+.collapse-button {
+  text-decoration: none;
+  border: 1px solid grey;
+  border-radius: 3px;
+  padding: 0 0.2em 0.1em;
+}

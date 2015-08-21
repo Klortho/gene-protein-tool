@@ -1,0 +1,9 @@
+{% macro search(csrf_token, value) -%}
+  <form name="gene_search" id="gene_search" action="{{url('gpt:search')}}" method='post'>
+    <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+    <input name="term" id="term" type="search" value="{{ value }}" 
+      autofocus="autofocus" placeholder="Enter a search term"
+      size='50'/>
+    <input name="submit" type="submit" id="submit" value="submit">
+  </form>
+{%- endmacro %}
