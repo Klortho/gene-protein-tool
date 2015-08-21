@@ -22,36 +22,74 @@
   <p>
   {% for g in resultset.genes.all() %}
     <div>
-      <h3>Gene {{ g.uid }}</h3>
+      <h3><a href='http://www.ncbi.nlm.nih.gov/gene/{{ g.uid }}/'>Gene
+          {{ g.name }} - {{ g.description }}</a></h3>
+        <table class='item_summary'>
+          <tr>
+            <th>Gene ID</th>
+            <td>{{ g.uid }}</td>
+          </tr>
+          <tr>
+            <th>Chromosome</th>
+            <td>{{ g.chromosome }}</td>
+          </tr>
+          <tr>
+            <th>Genetic source</th>
+            <td>{{ g.geneticsource }}</td>
+          </tr>
+          <tr>
+            <th>Organism</th>
+            <td>
+              <a href='http://www.ncbi.nlm.nih.gov/taxonomy/{{ g.organism_taxid }}/'>
+                {{ g.organism_name }} ({{ g.organism_commonname }})</a> - ID 
+                {{ g.organism_taxid }}</td>
+          </tr>
+          <tr>
+            <th>Summary</th>
+            <td>{{ g.summary }}</td>
+          </tr>
+          <tr>
+            <th>Genomic info</th>
+            <td>
+              {% for ginfo in g.genomicinfo_set.all() %}
+                <a href='http://www.ncbi.nlm.nih.gov/nuccore/{{ ginfo.chraccver }}/'>
+                  {{ ginfo.chraccver }}</a> - 
+                  chromosome {{ ginfo.chrloc }}, 
+                  {{ ginfo.chrstart }}:{{ ginfo.chrstop }}; 
+                  exons: {{ ginfo.exoncount }}<br/>
+              {% endfor %}
+            </td>
+          </tr>
+          <tr>
+            <th>Location history</th>
+            <td>
+              <table class='lochist'>
+                <thead>
+                  <tr>
+                    <th>Annotation release</th>
+                    <th>Assembly</th>
+                    <th>Chromosome</th>
+                    <th>Location</th>
+                    <th><a href='' class='collapse-button'>+</a></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for lochist in g.locationhist_set.all() %}
+                    <tr>
+                      <td>{{ lochist.annotationrelease }}</td>
+                      <td>{{ lochist.assemblyaccver }}</td>
+                      <td>{{ lochist.chraccver }}</td>
+                      <td>{{ lochist.chrstart }}:{{ lochist.chrstop }}</td>
+                    </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </td>
+          </tr>
+        </table>
 
-      {{ g.description }},
-      {{ g.chromosome }},
-      {{ g.geneticsource }},
-      {{ g.organism_name }},
-      {{ g.organism_commonname }},
-      {{ g.organism_taxid }},
-      {{ g.summary }},
-
-      {% for ginfo in g.genomicinfo_set.all() %}
-        <div>
-          {{ ginfo.chrloc }},
-          {{ ginfo.chraccver }},
-          {{ ginfo.chrstart }},
-          {{ ginfo.chrstop }},
-          {{ ginfo.exoncount }}
-        </div>
-      {% endfor %}
-
-      {% for lochist in g.locationhist_set.all() %}
-        <div>
-          {{ lochist.annotationrelease }},
-          {{ lochist.assemblyaccver }},
-          {{ lochist.chraccver }},
-          {{ lochist.chrstart }},
-          {{ lochist.chrstop }},
-        </div>
-      {% endfor %}
-
+        
+        
       {% for p in g.protein_set.all() %}
         <h4>Protein {{ p.uid }}</h4>
         <div>

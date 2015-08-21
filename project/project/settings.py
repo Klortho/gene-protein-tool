@@ -142,6 +142,6 @@ LOGGING = {
 # Gene protein tool settings
 # FIXME: set these back to 20, 5
 GPT = {
-    'max_genes': 2,
-    'max_proteins_per_gene': 2,
+    'max_genes': 10,
+    'max_proteins_per_gene': 5,
 }
