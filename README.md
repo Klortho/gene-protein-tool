@@ -14,10 +14,18 @@ pip install -r requirements.txt
 cd project
 ./manage.py migrate
 ./manage.py createsuperuser   # create user `admin`
+./manage.py test
 ./manage.py runserver
 ```
 
-Then, open your browser to http://localhost:8000
+Then, open your browser to [http://localhost:8000](http://localhost:8000).
+
+
+## Contents
+
+* [Walk-through](#walk-through)
+
+
 
 
 
@@ -166,6 +174,17 @@ This can also be used as a manual test procedure.
   a more sophisticated approach, and one of the "future work" itesm, would
   be to allow for collections within user accounts.
 
+### Edge cases
+
+* Search for "fleegle". Verify that you get a page that says "No genes found".
+
+
+
+## Settings
+
+The application currently limits the number of genes returned in one result
+set to 10, and the number of proteins per gene to 5.  These can be changed
+in the project/settings.py file, at the, under the "GPT" settings.
 
 
 ## Models / database schema
@@ -181,7 +200,7 @@ sqlite3 db.sqlite3
 Then, examine tables with, for example,
 
 ```
-.tables  # list all the tables
+.tables     # list all the tables
 select * from gpt_gene 
 ...
 ```
@@ -192,7 +211,8 @@ To get out of the SQLite interpreter:
 .exit
 ```
 
-If you ever want to start over completely, discarding all old migratons,
+
+To start over completely with the database, discarding all old migrations,
 do the following:
 
 ```
@@ -200,29 +220,17 @@ rm db.sqlite3
 rm gpt/migrations/00*
 ./manage.py makemigrations
 ./manage.py migrate
+./manage.py createsuperuser    # re-create user `admin`
 ```
 
-Then, you'll also have to create a superuser for this application:
-
-```
-./manage.py createsuperuser
-```
-
-I created user `admin`, password `admin`.
 
 
-To start the application with a brand-new database:
+## Request / data model interaction
 
-
-
-
-
-### Request / data model interaction
-
-One of the main goals of this project is to allow users to create a result
+One of the goals of this project is to allow users to create a result
 set "report", which they can then save and bookmark. I want the resultant
-report to be a static thing that won't change (unless the user himself 
-decides to change it). 
+report to be static and immutable, unless the user himself 
+decides to change it. 
 
 Because the data coming from E-Utilities is subject to change, this means
 that I want to save the results into the database, in order to ensure that
@@ -233,23 +241,32 @@ records every time a user enters a query, since, for example, they might
 enter the same query many times, and this would cause massive redundancy in
 the database.
 
-Here's the current strategy.  Everything is fluid until a ResultSet, and it's 
-associated Genes and Proteins, gets saved. At that point, an "archive" flag 
-gets set to True, and the records (but not the annotations, if any) become
-read-only.
+The strategy I settled on is to allow for everything to be fluid and changeable,
+up until the user explictly saves the result set. At that point, the result set,
+the genes, and the proteins, and their associated records, get "frozen", and will
+no longer be updated. I use a boolean field, "archived" to indicate these records.
 
-Specific behavior:
+The specific behavior is:
 
-* When we get a query that's the same as that for an existing ResultSet, that
-  doesn't have archive=True, update it. Otherwise, create a new ResultSet.
+* When the app gets a query that's the same as that for an existing ResultSet,
+  that doesn't have archived=True, and that was from the same user, then that
+  ResultSet is updated. Otherwise, a new ResultSet is created.
+* Each ResultSet has and "last_updated" field, that corresponds to the last time
+  this query was run against E-Utilities, for that user.
 * When an esearch results in a gene UID corresponding to a Gene that exists in 
-  the DB, that doesn't have archive=True, then update it. Otherwise create a 
-  new Gene record.
+  the DB, that doesn't have archived=True, then it is updated. Otherwise,
+  a new Gene record is created.
 * When an elink results in a protein UID corresponding to a Protein that exists
   in the database, that doesn't have archive=True, then update it. Otherwise,
   create a new Protein record.
-* When the user clicks "save" on a result set display, then set archive=True on
-  that ResultSet and all its corresponding Gene and Protein records.
+* Note that Gene and Protein records, unlike ResultSet records, are not tied
+  to an individual user. That means that a given ResultSet might link to Gene
+  or Protein records that have been updated later than the ResultSet's
+  last_updated time. I think this is a reasonable compromise.
+* When the user clicks "save" on a result set display, then the archived field
+  is set to True for that ResultSet and *all its corresponding Gene and Protein 
+  records*. That means that these Gene and Protein records are no longer 
+  available to participate in any new queries.
 
 
 
@@ -283,6 +300,8 @@ If you set the GTP_LOG_FILE environment variable, you can put that anywhere you 
 The logging is configured in the `LOGGING` section of settings.py. By default,
 the log level both for the console and the log file is `DEBUG`.
 
+
+## User authentication
 
 
 
@@ -353,4 +372,5 @@ sqlite> select * from gpt_resultset;
 ## License
 
 ![WTFPL](https://github.com/Klortho/gene-protein-tool/raw/master/wtfpl-badge-1.png)
-free license. See LICENSE.txt.
+
+See LICENSE.txt.

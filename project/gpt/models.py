@@ -65,8 +65,6 @@ class Protein(models.Model):
     projectid = models.CharField(max_length = 20)
     genome = models.CharField(max_length = 20)
     organism = models.CharField(max_length = 50)
-
-
     archived = models.BooleanField(default = False)
 
     def __str__(self):
@@ -91,7 +89,6 @@ class ResultSet(models.Model):
     # Protein objects, into the database.
     @classmethod
     def create_from_query(cls, query, user):
-        print("====================> user = " + str(user))
         try:
             rs = cls.objects.get(query=query, user=user, archived=False)
             debug_msg = "Updating "
@@ -206,8 +203,8 @@ class ResultSet(models.Model):
             pid_to_gene = {}
             gene_num = 0
             for linkset_gene in elink_result:
-                print("linkset_gene: ")
-                pp.pprint(linkset_gene)
+                #print("linkset_gene: ")
+                #pp.pprint(linkset_gene)
 
                 # Enforce max_genes here, too. This shouldn't be necessary, but doesn't hurt:
                 if (gene_num >= max_genes): break
