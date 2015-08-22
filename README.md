@@ -189,8 +189,25 @@ in the project/settings.py file, at the, under the "GPT" settings.
 
 ## Models / database schema
 
-Right now, this uses a SQLite database.  To connect directly to the
-database:
+Here is an entity-relationship diagram illustrating this application's data
+model. Arrows indicate one-to-many relationships with the arrowhead on the 
+"many" side. In other words, every user can have many resultsets.  
+
+![Data model ERD](https://raw.githubusercontent.com/Klortho/gene-protein-tool/master/gene-protein-tool-erd.png)
+
+
+The table "resultset-genes" is constructed automatically by Django, since the
+ResultSet model, in models.py, contains this many-to-many specifier:
+
+```
+genes = models.ManyToManyField(Gene)
+```
+
+
+### Inspecting the database
+
+Currently, this uses the SQLite database that is configured automatically when you
+start a new Django project.  To connect directly to the database:
 
 ```
 cd project
@@ -211,17 +228,27 @@ To get out of the SQLite interpreter:
 .exit
 ```
 
+Another way to inspect the contents of the database is through the
+Django admin app (see below).
+
+
+### Recreating the database from scratch
 
 To start over completely with the database, discarding all old migrations,
 do the following:
 
 ```
 rm db.sqlite3
-rm gpt/migrations/00*
+git rm gpt/migrations/00*
 ./manage.py makemigrations
+git add gpt/migrations
 ./manage.py migrate
 ./manage.py createsuperuser    # re-create user `admin`
+
 ```
+
+Since the migration files are in Git, you should remove the old ones, and add
+the new one, into the git repository.
 
 
 
@@ -272,23 +299,91 @@ The specific behavior is:
 
 ## Views
 
+This application is configured to use Jinja2 templates for most of the
+views.  The exceptions are the views related to user-authentication. Since
+they were done at the last minute, and I couldn't figure out how to configure
+the built-in user-authentication module to use Jinja2 templates.
 
-### save
+URLs that this app handles are defined in:
+
+* project/urls.py - this is the top-level, and includes:
+    * /admin/* - the Django admin app's URLs; see below for more info.
+    * /login/ - the *login* view; this is defined in the Django 
+      user-authentication module
+    * /register/ - the *register* view; a custom user-authentication URLs
+    * /do_register/ - the *do_register* view; which is the form handler for 
+      the /register/ form.
+    * gpt/urls.py - defines GPT-specific URLs:
+        * / - the *home* view
+        * /search/ - the *search* view
+        * /results/{id}/ - the *results* view
+        * /save/ - the *save* view
+
+### login view
+
+This uses the project-level template file templates/registration/login.html.
+This was adapted from an example in the Django documentation.
+
+This one URL/view/template handles both presenting the form, and handling
+the form data once it is filled in and POSTed back.
+
+### register view
+
+This view is defined in project/views.py, and uses the template file
+templates/registration/register.html. It presents a simple form to the
+user, and POSTs to the do_register view.
+
+Note that unlike the *login* view, the *register* view doesn't come with the 
+django.contrib.auth, so I made my own.
+
+
+### do_register view
+
+This view is defined in project/views.py, and handles the incoming form
+data.  It does some validation on it, and if there is an error, it presents
+a very rudimentary error page to the user.
+
+If everything is successful, it creates the new user in the database, logs
+in as that user, and redirects to the home view.
+
+### home view
+
+This is defined in gpt/views.py, and uses the template file
+gpt/jinja2/gpt/home.html.
+
+Note that that template, and the others in the GPT app, inherit from the
+gpt/jinja2/gpt/base.html template, which defined the wrapper HTML, which
+includes all the JS libraries and CSS files.
+
+### search view
+
+This is defined in gpt/views.py. It handles the search request, which is 
+POST data from the search form. 
+If successful, it creates a new ResultSet
+and its associated data, and then redirects to the corresponding result view.
+
+### results view
+
+This view is defined in gpt/views.py, and uses the template
+gpt/jinja2/gpt/result.html.
+
+This takes the ID of the ResultSet in the final path segment of the URL.
+
+It is quite a long template file, and includes a lot of conditionals, to
+handle the variation in the data coming from E-utilities.
+
+### save view
 
 This view responds to Ajax POST requests that result from the user clicking the
 "Save" button on the result set page. That POST request includes just one 
 request parameter, `resultset_id`, which is the primary key of the result set
 in the datbase.
 
-Testing this by examining the Ajax request in the Chrome developer toolbar.
-
-When there is any problem, this view returns with an HTTP error status, which
+If there is any problem, this view returns with an HTTP error status, which
 then gets displayed by the JavaScript in an alert box.
 
 When successful, this view returns status 200, and the JavaScript changes the
 button label to "Saved", and disables it.
-
-
 
 
 ## Logging
@@ -299,11 +394,6 @@ If you set the GTP_LOG_FILE environment variable, you can put that anywhere you 
 
 The logging is configured in the `LOGGING` section of settings.py. By default,
 the log level both for the console and the log file is `DEBUG`.
-
-
-## User authentication
-
-
 
 
 ## Testing
@@ -329,16 +419,15 @@ The test responses are from here:
 * [esummary_proteins.json](http://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?tool=gene-protein-tool&email=voldrani@gmail.com&retmode=json&db=protein&id=908541558,908512451,908446945,908446940,908446936,908528114,908454923,908498535,908535323,908535320,908510771,908431187,908529763,908529760)
 
 
-
-## Development / debugging
-
-
-### Django admin app
+## Django admin app
 
 Connect to the django admin app at [http://localhost:8000/admin/]().
 
+If necessary, login as the user `admin`. From there, you can view and modify
+the database records.
 
-### Django shell
+
+## Django shell
 
 You can connect to the django console with:
 
@@ -349,24 +438,6 @@ cd project
 
 This uses `shell_plus`, which preloads the models, plus some eutils routines,
 as specified by `SHELL_PLUS_PRE_IMPORTS` in settings.py.
-
-
-### Inspecting the database
-
-Connect to the SQLite database with, for example:
-
-```
-$ cd project
-$ sqlite3 db.sqlite3 
-sqlite> .tables
-auth_group                  django_migrations         
-...                         ...
-sqlite> select * from gpt_resultset;
-5|2015-08-17 02:18:53.453206|human|1
-...
-.quit
-```
-
 
 
 ## License
