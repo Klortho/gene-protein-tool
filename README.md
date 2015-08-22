@@ -5,18 +5,21 @@ To run this:
 ```
 git clone https://github.com/Klortho/gene-protein-tool.git
 cd gene-protein-tool
+./get-libraries.sh     # Downloads some JS libraries
 pyvenv env
 source env/bin/activate
-```
 
-***FIXME: install dependencies? requirements.txt? ***
+pip install -r requirements.txt
 
-To run the service:
-
-```
 cd project
+./manage.py migrate
+./manage.py createsuperuser   # create user `admin`
 ./manage.py runserver
 ```
+
+Then, open your browser to http://localhost:8000
+
+
 
 
 ## Walk-through
@@ -24,10 +27,146 @@ cd project
 This section describes a step-by-step walkthrough of the app, to see its features.
 This can also be used as a manual test procedure.
 
-* Bring up the app at http://localhost:8000
-* Enter "human" in the search box
-* Verify that you get a set of results corresponding to some genes, and their
-  associated proteins
+
+### Bring up the app
+
+* Open [http://localhost:8000](http://localhost:8000) in your browser. 
+  You'll see the home page.
+* You won't be logged in yet, so you should see "Register" and
+  "Login" links 
+
+### Do a search
+
+* Enter "human" in the search box, and click "Submit"
+* After a short time, you should get a page that has a list of ten
+  genes
+* Each gene will have up to five proteins associated with it
+* The links to each gene and protein header goes to the corresponding
+  record in the NCBI databases
+* Many of the other items in the results display are linked to the 
+  NCBI database as well, including organisms, bioprojects, genome
+  assemblies, chromosome sequence records, etc.
+* Each gene has 0 - many location information records. These are displayed
+  in a collapsible table (collapsed by default)
+
+### Back to the home page
+
+* Click the header at the top of the results set display. You'll go back to
+  the home page.
+* Now, you should see this query listed under "Search history". 
+* The "Saved?" column is blank, because we haven't saved that query yet.
+  Query results sets are subject to change until they get saved, at 
+  which point they become frozen and immutable.
+* Make a note of the "last updated" time
+
+
+### Search history
+
+* Click "human" in the search history list. You will get back to the query 
+  results page.
+* Note that we went directly to the results page -- the search term was
+  not re-evaluated. 
+* You could also copy-paste the URL, and bring it up in another browser,
+  and get the same results -- it is not dependant on the user session. 
+* Since the search was not re-evaluated, the result-set, gene, and
+  protein data all came directly out of the database. There were no
+  new calls to E-utilities.
+* Go back to the home page, and verify that the "last update" time
+  has not changed.
+
+
+### Re-do the same search
+
+* Enter the exact same thing, "human", in the search box, and click the 
+  "submit" button again
+* Now, the search is re-evaluated anew. The application
+  refreshes the result set, gene and protein data, with new calls to 
+  NCBI E-utilities. 
+* This is one area where the app could be improved: it
+  should only make new calls to E-utilities, for a given gene or
+  protein record, after some reasonable expiration period, perhaps
+  one week.
+* Note that the "Save result set" button is greyed-out. This is because
+  we are not logged in. You can only save results sets after logging in.
+* Click the header again to go back to the home page
+* Note that even though the search was re-evaluated, there is still
+  only one saved search for "human"
+* Verify that now, the "last update" time has changed.
+
+
+### Create an account, "alice"
+
+* Click "Register"
+* In the registration form that appears, enter the username "alice",
+  and use the same value for the password.
+* This is a very rudimentary user authentication system, and
+  there is no mechanism to reset or change your password, or verify email
+  addresses, or anything like that.
+* After registering, you'll be redirected to the home page. You should
+  now see "Logout" and "alice" in the upper right.
+* For testing, click the "Logout" link now. You should become logged out, 
+  and go immediately back to the home screen. The saved search
+  list changes depending on whether or not you are logged in.
+* Log back in as "alice"
+
+### Same search again, under user account
+
+* Enter the exact same search, "human"
+* You will get another results set page, that looks just like the earlier
+  one.
+* Under the hood, this creates a new ResultSet model
+  object (a new record in the gpt_resultset table), but not new gene or
+  protein records. Those data records are shared by all active (not
+  saved) result sets that reference them.
+
+### Modify the search
+
+* Now, in the results set page, modify the search to "human AND y[Chromosome]"
+* You'll get a different set of genes and proteins.
+* Go back to the home page, and you should see this new query in the list
+* Click on the link, to go back to the results set page
+
+
+### Saving a result set
+
+* Click "Save result set". The button label should change to "Saved", and the
+  button should become greyed out.
+* This causes the database to set an "archived" flag on the result set, gene,
+  and protein records. From now on, none of those database records will ever
+  change.
+* Because of this, a researcher could bookmark this URL, and cite it in his
+  paper, and be sure that (assuming the web site were still around) it would
+  be a permanent snapshot of the results at that instant in time.
+
+
+### Saved result set behavior
+
+* Click the header link to go back to the home page. Now, in the results
+  list, you should see a check-mark in the "Saved?" column.
+* Click the link for that query to go back to the results page. Make a note of
+  the URL -- the number in the last path segment is the result set ID.
+  Then click the "Submit" button next to the query.
+* Unlike before, where running the same query updated the results, now,
+  this will create a new result-set record, and new, mutable copies of each
+  gene and protein record in the database.
+* The result set ID in the URL should have changed.
+* Go back to the home page, and now, in the search list, you should see two
+  queries for "human AND y[Chromosome]"; one saved and one not.
+* Copy this URL, and save it somewhere.
+
+### Register a new user account, "bob"
+
+* Click the "logout" link. You'll go back to the home page, with the search
+  result for the "anonymous user".
+* Click "register", and create a new account, with username "bob". 
+  Now, in the home page, you should not see any search results.
+* This feature allows each user to keep his/her own lists of search results.
+  If they wanted to, they could even create project-specific user accounts,
+  to get lists of search results specific to a given project. Of course,
+  a more sophisticated approach, and one of the "future work" itesm, would
+  be to allow for collections within user accounts.
+
+
 
 ## Models / database schema
 
@@ -204,3 +343,9 @@ sqlite> select * from gpt_resultset;
 .quit
 ```
 
+
+
+## License
+
+![WTFPL](https://github.com/Klortho/gene-protein-tool/raw/master/wtfpl-badge-1.png)
+free license. See LICENSE.txt.
