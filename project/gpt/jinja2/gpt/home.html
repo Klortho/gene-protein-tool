@@ -8,25 +8,28 @@
   {{ forms.search(csrf_token, '') }}
 
   <h2 class='page_title'>Search history</h2>
-  <table class='resultset_list'>
-    <thead>
-      <tr>
-        <th>Saved?</th>
-        <th>Last updated</th>
-        <th>Query</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for rs in result_sets %}
+  {% if result_sets|length == 0 %}
+    <p>No searches yet!</p>
+  {% else %}
+    <table class='resultset_list'>
+      <thead>
         <tr>
-          <td class='saved'>{{ "✓" if rs.archived else "" }}</td>
-          <td>{{ rs.last_updated.strftime('%Y-%m-%d %H:%M') }}</td>
-          <td>
-            <a href="{{ url('gpt:result', args=(rs.id,)) }}">{{ rs.query }}</a>
-          </td>
+          <th>Saved?</th>
+          <th>Last updated</th>
+          <th>Query</th>
         </tr>
-      {% endfor %}
-    </tbody>
-  </table>
-
+      </thead>
+      <tbody>
+        {% for rs in result_sets %}
+          <tr>
+            <td class='saved'>{{ "✓" if rs.archived else "" }}</td>
+            <td>{{ rs.last_updated.strftime('%Y-%m-%d %H:%M') }}</td>
+            <td>
+              <a href="{{ url('gpt:result', args=(rs.id,)) }}">{{ rs.query }}</a>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% endif %}
 {% endblock %}

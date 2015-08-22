@@ -1,4 +1,5 @@
-from django.conf.urls import url
+from django.contrib.auth.models import User
+from django.conf.urls import include, url
 from . import views
 
 urlpatterns = [
@@ -7,4 +8,6 @@ urlpatterns = [
     url(r'^results/(?P<pk>[0-9]+)/$', views.ResultView.as_view(), name='result'),
     url(r'^save/$', views.save, name='save'),
 ]
+
+
 

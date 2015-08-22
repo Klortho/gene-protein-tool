@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% if form.errors %}
+  <p>Your username and password didn't match. Please try again.</p>
+{% endif %}
+
+<h2 class='page_title'>Register</h2>
+
+<form method="post" action="{% url 'do_register' %}">
+  {% csrf_token %}
+  <table>
+    <tr>
+      <td><label for='is_username'>Username</label>:</td>
+      <td>
+        <input id="id_username" 
+               maxlength="254" 
+               name="username" 
+               type="text" 
+               autocomplete="off" />
+      </td>
+    </tr>
+    <tr>
+      <td><label for="id_password1">Password:</label></td>
+      <td>
+        <input id="id_password1" 
+               name="password1" 
+               type="password" 
+               autocomplete="off">
+      </td>
+    </tr>
+    <tr>
+      <td><label for="id_password2">Repeat password:</label></td>
+      <td>
+        <input id="id_password2" 
+               name="password2" 
+               type="password" 
+               autocomplete="off">
+      </td>
+    </tr>
+  </table>
+
+  <input type="submit" value="login" />
+  <input type="hidden" name="next" value="{{ next }}" />
+</form>
+
+{% endblock %}

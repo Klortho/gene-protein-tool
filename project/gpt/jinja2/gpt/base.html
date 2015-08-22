@@ -12,6 +12,15 @@
     {% block meta %}{% endblock %}
   </head>
   <body>
+    <div class='user_stuff'>
+      {% if request.user.is_authenticated() %}
+        <a href="{{url('auth:logout')}}">Logout</a> |
+        {{request.user.username}}
+      {% else %}
+        <a href="{{url('register')}}">Register</a> |
+        <a href="{{url('auth:login')}}">Login</a>
+      {% endif %}
+    </div>
     <h1><a href="{{url('gpt:home')}}">Gene/protein search tool</a></h1>
     <div id='content'>
       {% block content %}{% endblock %}

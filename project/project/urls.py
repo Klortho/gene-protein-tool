@@ -15,8 +15,17 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
+from django.contrib.auth import views as auth_views
+from . import views
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
+
+    url('^logout/', auth_views.logout, {'next_page': "gpt:home"}),
+    url(r'^register/$', views.register, name='register'),
+    url(r'^do_register/$', views.do_register, name='do_register'),
+    url('^', include('django.contrib.auth.urls', namespace="auth")),
+
+
     url(r'^', include('gpt.urls', namespace="gpt")),
 ]

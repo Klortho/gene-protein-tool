@@ -1,12 +1,18 @@
+from django.contrib.auth.models import User
 from django.db import models
-from gpt.eutils import *
-import pprint
-import logging
-from project.settings import GPT
+
 import dateutil.parser
+import logging
+import pprint
+
+from gpt.eutils import *
+from project.settings import GPT
+
 
 logger = logging.getLogger(__name__)
 pp = pprint.PrettyPrinter(indent=4)
+
+
 
 
 # Gene model
@@ -74,6 +80,7 @@ def _get_string(json, k):
 # ResultSet model
 
 class ResultSet(models.Model):
+    user = models.ForeignKey(User)
     last_updated = models.DateTimeField(auto_now = True)
     genes = models.ManyToManyField(Gene)
     query = models.CharField(max_length = 200)
@@ -83,13 +90,16 @@ class ResultSet(models.Model):
     # This does not save the ResultSet, or any of the resultant Gene or
     # Protein objects, into the database.
     @classmethod
-    def create_from_query(cls, query):
+    def create_from_query(cls, query, user):
+        print("====================> user = " + str(user))
         try:
-            rs = cls.objects.get(query = query, archived = False)
+            rs = cls.objects.get(query=query, user=user, archived=False)
             debug_msg = "Updating "
         except cls.DoesNotExist:
-            rs = cls(query=query)
+            rs = cls(query=query, user=user)
             debug_msg = "Creating new "
+
+        logger.debug(debug_msg + str(rs))
 
         # Lists for storing the child model objects we create. If all goes well
         # then all of these get saved to the DB at the end

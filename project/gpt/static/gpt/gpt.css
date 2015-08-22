@@ -3,6 +3,10 @@ body {
   margin: 1em 10em;
 }
 
+.user_stuff {
+  float: right;
+}
+
 #save_button {
   float: right;
 }

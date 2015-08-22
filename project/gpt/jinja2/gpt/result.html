@@ -10,7 +10,8 @@
 
 {% block content %}
   <div>
-    <input id='save_button' type='button' value='Save result set'/>
+    <input id='save_button' type='button' value='Save result set'
+      {% if is_anon %}disabled='disabled'{% endif %}/>
     {{ forms.search(csrf_token, resultset.query) }}
   </div>
   {% if resultset.genes.all()|length == 0 %}

@@ -1,0 +1,21 @@
+{% comment %}
+
+  This is a duplicate of the Jinja2 base.html template, as a standard
+  Django template; used in the user authentication views. 
+
+  I'd rather not duplicate everything, but I'm not sure how to
+  get the user authentication views to use Jinja2.
+
+{% endcomment %}
+
+{% load staticfiles %}
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="{% static 'gpt/gpt.css' %}" />
+  </head>
+  <body>
+    <h1><a href="{% url 'gpt:home' %}">Gene/protein search tool</a></h1>
+
+    {% block content %}{% endblock %}
+  </body>
+</html>
