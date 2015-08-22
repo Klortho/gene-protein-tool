@@ -283,6 +283,10 @@ If you set the GTP_LOG_FILE environment variable, you can put that anywhere you 
 The logging is configured in the `LOGGING` section of settings.py. By default,
 the log level both for the console and the log file is `DEBUG`.
 
+
+
+
+
 ## Testing
 
 To run tests:
@@ -326,6 +330,7 @@ cd project
 
 This uses `shell_plus`, which preloads the models, plus some eutils routines,
 as specified by `SHELL_PLUS_PRE_IMPORTS` in settings.py.
+
 
 ### Inspecting the database
 

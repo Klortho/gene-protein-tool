@@ -19,7 +19,6 @@ def do_register(request):
         if (request.user.is_authenticated()):
             raise Exception("You are already logged in!")
 
-        # Fixme: change this to POST
         if (request.method != "POST"):
             raise Exception("This page should only be accessible by POST")
 

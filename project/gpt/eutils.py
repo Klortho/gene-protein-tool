@@ -61,7 +61,7 @@ def esummary(idlist, db='gene'):
 
     return json.loads(resp_str)['result']
 
-# FIXME: which linkname should we use? gene_protein, or gene_protein_refseq?
+
 def elink(idlist, dbfrom='gene', db='protein', linkname='gene_protein'):
     if (len(idlist) == 0): return None
 
