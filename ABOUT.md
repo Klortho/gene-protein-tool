@@ -124,8 +124,15 @@ Here is a list of things that could be improved with this service.
 * User's should have the ability to delete queries in their saved search list.
 * The tool needs a garbage collector, that discards old records that haven't
   been used for a long time.
+* The tool should only make new calls to E-utilities, for a given gene or 
+  protein record, after some reasonable expiration period -- perhaps one week.
+  The NCBI data is subject to change, but not so often.
+* There is a small bug in the way user accounts work:
+  if one user is looking at a non-saved result set of another user, the "save 
+  result set" button should only be greyed out. That is, only the user who
+  "owns" a result set should be able to save it.
 * Use EFetch, instead of ESummary, to get much more/better data about the Genes
-  and Proteins
+  and Proteins.
 * Add the ability for the user to add hand-written notes (annotations) that get
   added to the ResultSet, and/or individual genes or proteins.
 * More testing, including both unit tests and functional tests with Selenium.

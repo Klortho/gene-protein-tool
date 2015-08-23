@@ -120,10 +120,6 @@ This can also be used as a manual test procedure.
 * Now, the search is re-evaluated anew. The application
   refreshes the result set, gene and protein data, with new calls to 
   NCBI E-utilities. 
-* This is one area where the app could be improved: it
-  should only make new calls to E-utilities, for a given gene or
-  protein record, after some reasonable expiration period, perhaps
-  one week.
 * Note that the "Save result set" button is greyed-out. This is because
   we are not logged in. You can only save results sets after logging in.
 * Click the header again to go back to the home page
@@ -137,9 +133,9 @@ This can also be used as a manual test procedure.
 * Click "Register"
 * In the registration form that appears, enter the username "alice",
   and use the same value for the password.
-* This is a very rudimentary user authentication system, and
+* (Keep in mind that this is a very rudimentary user authentication system, and
   there is no mechanism to reset or change your password, or verify email
-  addresses, or anything like that.
+  addresses, or anything like that.)
 * After registering, you'll be redirected to the home page. You should
   now see "Logout" and "alice" in the upper right.
 * For testing, click the "Logout" link now. You should become logged out, 
@@ -190,7 +186,6 @@ This can also be used as a manual test procedure.
 * The result set ID in the URL should have changed.
 * Go back to the home page, and now, in the search list, you should see two
   queries for "human AND y[Chromosome]"; one saved and one not.
-* Copy this URL, and save it somewhere.
 
 ### Register a new user account, "bob"
 
@@ -214,14 +209,14 @@ This can also be used as a manual test procedure.
 
 The application currently limits the number of genes returned in one result
 set to 10, and the number of proteins per gene to 5.  These can be changed
-in the project/settings.py file, at the, under the "GPT" settings.
+in the project/settings.py file, under the "GPT" settings.
 
 
 ## Models / database schema
 
 Here is an entity-relationship diagram illustrating this application's data
 model. Arrows indicate one-to-many relationships with the arrowhead on the 
-"many" side. In other words, every user can have many resultsets.  
+"many" side. In other words, for example, every user can have many resultsets.  
 
 ![Data model ERD](https://raw.githubusercontent.com/Klortho/gene-protein-tool/master/gene-protein-tool-erd.png)
 
@@ -259,7 +254,7 @@ To get out of the SQLite interpreter:
 ```
 
 Another way to inspect the contents of the database is through the
-Django admin app (see below).
+Django admin app (see [below](#django-admin-app)).
 
 
 ### Recreating the database from scratch
@@ -284,32 +279,32 @@ the new one, into the git repository.
 
 ## Request / data model interaction
 
-One of the goals of this project is to allow users to create a result
-set "report", which they can then save and bookmark. I want the resultant
-report to be static and immutable, unless the user himself 
-decides to change it. 
+As described in the [ABOUT](ABOUT.md) page,  one of the goals of this 
+project is to allow users to create an immutable result
+set "report", which they can then save and bookmark.
 
 Because the data coming from E-Utilities is subject to change, this means
-that I want to save the results into the database, in order to ensure that
+that the app needs to save the results into the database, in order to ensure that
 the generated report isn't dependent on the vagaries of NCBI.
 
-But that introduces a problem. I don't want to create new Gene and Protein
+But that introduces a problem: we don't want to create new Gene and Protein
 records every time a user enters a query, since, for example, they might
 enter the same query many times, and this would cause massive redundancy in
 the database.
 
-The strategy I settled on is to allow for everything to be fluid and changeable,
-up until the user explictly saves the result set. At that point, the result set,
+The strategy I settled on is to allow for the records to be changeable,
+until the user explictly saves the result set. At that point, the result set,
 the genes, and the proteins, and their associated records, get "frozen", and will
-no longer be updated. I use a boolean field, "archived" to indicate these records.
+no longer be updated. The boolean field "archived" is used to indicate records
+that are frozen.
 
 The specific behavior is:
 
-* When the app gets a query that's the same as that for an existing ResultSet,
+* When the app gets a query that's the same as that for an existing ResultSet
   that doesn't have archived=True, and that was from the same user, then that
   ResultSet is updated. Otherwise, a new ResultSet is created.
-* Each ResultSet has and "last_updated" field, that corresponds to the last time
-  this query was run against E-Utilities, for that user.
+* Each ResultSet has a "last_updated" field, that corresponds to the last time
+  this query was run against E-Utilities.
 * When an esearch results in a gene UID corresponding to a Gene that exists in 
   the DB, that doesn't have archived=True, then it is updated. Otherwise,
   a new Gene record is created.
@@ -336,12 +331,13 @@ the built-in user-authentication module to use Jinja2 templates.
 
 URLs that this app handles are defined in:
 
-* project/urls.py - this is the top-level, and includes:
-    * /admin/* - the Django admin app's URLs; see below for more info.
+* project/urls.py - this is the top-level module, and includes:
+    * /admin/* - the Django admin app's URLs; see [below](#django-admin-app) 
+      for more info.
     * /login/ - the [login view](#login-view); this is defined in the Django 
       user-authentication module
     * /register/ - the [register view](#register-view); a custom user-authentication URLs
-    * /do_register/ - the [do_register view](#do_register); 
+    * /do_register/ - the [do_register view](#do_register-view); 
       which is the form handler for the /register/ form.
     * gpt/urls.py - defines GPT-specific URLs:
         * / - the [home view](#home-view)
@@ -360,16 +356,18 @@ the form data once it is filled in and POSTed back.
 ### register view
 
 This view is defined in project/views.py, and uses the template file
-templates/registration/register.html. It presents a simple form to the
-user, and POSTs to the do_register view.
+[templates/registration/register.html](project/templates/registration/register.html). 
+It presents a simple form to the
+user, and POSTs to the [do_register view](#do_register-view).
 
-Note that unlike the *login* view, the *register* view doesn't come with the 
-django.contrib.auth, so I made my own.
+Note that unlike the login view, this view doesn't come with the 
+django.contrib.auth, so I had to write my own.
 
 
 ### do_register view
 
-This view is defined in project/views.py, and handles the incoming form
+This view is defined in [project/views.py](project/project/views.py), and 
+handles the incoming form
 data.  It does some validation on it, and if there is an error, it presents
 a very rudimentary error page to the user.
 
@@ -483,7 +481,5 @@ as specified by `SHELL_PLUS_PRE_IMPORTS` in settings.py.
 ## License
 
 <a href='http://www.wtfpl.net/'><img src='https://github.com/Klortho/gene-protein-tool/raw/master/wtfpl-badge-1.png'/></a>
-
-![WTFPL](https://github.com/Klortho/gene-protein-tool/raw/master/wtfpl-badge-1.png)
 
 See [LICENSE.txt](LICENSE.txt).
