@@ -1,9 +1,9 @@
-# Gene protein tool
+# Gene-protein tool
 
 This application is a web interface to the NCBI 
 [gene](http://www.ncbi.nlm.nih.gov/gene) and 
 [protein](http://www.ncbi.nlm.nih.gov/protein) databases, which allows
-users to generate and save reports from search results sets.
+users to generate and save reports from search results.
 
 See the [ABOUT](ABOUT.md) page for motivation, background, lessons learned,
 etc.
@@ -482,6 +482,8 @@ as specified by `SHELL_PLUS_PRE_IMPORTS` in settings.py.
 
 ## License
 
+<a href='http://www.wtfpl.net/'><img src='https://github.com/Klortho/gene-protein-tool/raw/master/wtfpl-badge-1.png'/></a>
+
 ![WTFPL](https://github.com/Klortho/gene-protein-tool/raw/master/wtfpl-badge-1.png)
 
-See LICENSE.txt.
+See [LICENSE.txt](LICENSE.txt).
