@@ -376,24 +376,25 @@ in as that user, and redirects to the home view.
 
 ### home view
 
-This is defined in gpt/views.py, and uses the template file
-gpt/jinja2/gpt/home.html.
+This is defined in [gpt/views.py](project/gpt/views.py), and uses the template file
+[gpt/jinja2/gpt/home.html](project/gpt/jinja2/gpt/home.html).
 
 Note that that template, and the others in the GPT app, inherit from the
-gpt/jinja2/gpt/base.html template, which defined the wrapper HTML, which
+[gpt/jinja2/gpt/base.html](project/gpt/jinja2/gpt/base.html) template, which 
+defined the wrapper HTML, which
 includes all the JS libraries and CSS files.
 
 ### search view
 
-This is defined in gpt/views.py. It handles the search request, which is 
-POST data from the search form. 
+This is defined in [gpt/views.py](project/gpt/views.py). It handles the search 
+request, which is POST data from the search form. 
 If successful, it creates a new ResultSet
 and its associated data, and then redirects to the corresponding result view.
 
 ### results view
 
-This view is defined in gpt/views.py, and uses the template
-gpt/jinja2/gpt/result.html.
+This view is defined in [gpt/views.py](project/gpt/views.py), and uses the template
+[gpt/jinja2/gpt/result.html](project/gpt/jinja2/gpt/result.html).
 
 This takes the ID of the ResultSet in the final path segment of the URL.
 
@@ -442,8 +443,10 @@ To run tests:
 
 ### Testing eutils
 
-I've saved several eutils responses to static json files, in gpt/test_eutils.
-If, in eutils.py, you set `test_json` to `True`, then, for certain queries,
+I've saved several eutils responses to static json files, in 
+[gpt/test_eutils](project/gpt/test_eutils).
+If, in [eutils.py](project/gpt/eutils.py), you set `test_json` to `True`, 
+then, for certain queries,
 these static JSON resources will be used for the response instead of real HTTP requests
 to NCBI.  Don't do that.  This is only to be used by the automated tests.
 
