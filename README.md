@@ -403,7 +403,7 @@ handle the variation in the data coming from E-utilities.
 
 JavaScript and CSS are used extensively in this view to enhance the display
 of the results. For example, a gene record might have many "location history"
-records associated with it, which give the location of that gene in possible
+records associated with it, which give the location of that gene in possibly
 many different assemblies. These records are displayed in a collapsible table,
 that is collapsed by default. JavaScript is used to "uncollapse" the table,
 when the user clicks on the control.
@@ -460,7 +460,8 @@ The test responses are from here:
 
 ## Django admin app
 
-Connect to the django admin app at [http://localhost:8000/admin/]().
+Connect to the django admin app at 
+[http://localhost:8000/admin/](http://localhost:8000/admin/).
 
 If necessary, login as the user `admin`. From there, you can view and modify
 the database records.
